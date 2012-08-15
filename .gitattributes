@@ -1,0 +1,14 @@
+*.c   text eof=lf
+*.cpp text eof=lf
+*h.in text eof=lf
+
+*.sln text eof=crlf
+*.vcproj text eof=crlf
+
+bootstrap 	text eof=lf
+depcomp		text eof=lf
+install-sh	text eof=lf
+missing		text eof=lf
+mkinstalldirs	text eof=lf
+Makefile.am	text eof=lf
+configure.ac	text eof=lf
