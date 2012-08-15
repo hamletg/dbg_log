@@ -1,0 +1,6 @@
+
+
+/* Define to 1 if you have want to use dbg_class feature */
+#undef DBG_LOG
+
+
