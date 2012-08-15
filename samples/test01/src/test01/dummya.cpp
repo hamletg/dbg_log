@@ -2,7 +2,9 @@
 #include "test01/dummya.h"
 
 #include "dbg_log/dbg_class.h"
+#ifndef _MSC_VER
 #include "dbg_log/config.h"
+#endif
 
 DummyA::DummyA()
 {
