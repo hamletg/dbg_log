@@ -12,7 +12,7 @@
 
 #include "../include/log_ice_dbg/version.h"
 
-serverdaemon ICON "serverdaemon.ico"
+log_ice_dbg ICON "log_ice_dbg.ico"
 
 #ifdef WIN32
 #include <windows.h>
