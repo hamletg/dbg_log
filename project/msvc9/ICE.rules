@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioToolFile
+	Name="ICE Tools"
+	Version="8.00"
+	>
+	<Rules>
+		<CustomBuildRule
+			Name=".ice files to C++ files"
+			DisplayName=".ice to C++"
+			CommandLine="$(ICE)\bin\msvc9\slice2cpp.exe -I$(ICE)/slice  -I../../src --output-dir $(InputDir) [IncludeDirInICEFile] [DLLExport] $(InputPath)&#x0D;&#x0A;copy $(InputDir)\$(InputName).h [IncludeDirSource]"
+			Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp"
+			FileExtensions="*.ice"
+			ExecutionDescription="Run slice2cpp"
+			>
+			<Properties>
+				<StringProperty
+					Name="DLLExport"
+					DisplayName="dll-export"
+					Switch="--dll-export [Value]"
+				/>
+				<StringProperty
+					Name="IncludeDirInICEFile"
+					DisplayName="IncludeDirInICEFile"
+					Switch="--include-dir [Value]"
+					DefaultValue="$(ProjectName)/ice"
+				/>
+				<StringProperty
+					Name="IncludeDirSource"
+					DisplayName="IncludeDirSource"
+					Switch="[Value]"
+					DefaultValue="..\..\include\$(ProjectName)\ice"
+				/>
+			</Properties>
+		</CustomBuildRule>
+	</Rules>
+</VisualStudioToolFile>
