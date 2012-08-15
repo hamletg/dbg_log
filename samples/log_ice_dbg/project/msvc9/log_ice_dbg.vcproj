@@ -429,6 +429,18 @@
 				RelativePath="..\..\include\log_ice_dbg\version.h"
 				>
 			</File>
+			<Filter
+				Name="ice"
+				>
+				<File
+					RelativePath="..\..\include\log_ice_dbg\ice\logicedbgctrlif.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\log_ice_dbg\ice\printer.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"

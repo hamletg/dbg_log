@@ -18,8 +18,8 @@
 // </auto-generated>
 //
 
-#ifndef __log_ice_ice_d__project_Main_dbg_log_src_log_ice_ice__loggerctrl_h__
-#define __log_ice_ice_d__project_Main_dbg_log_src_log_ice_ice__loggerctrl_h__
+#ifndef __log_ice_ice_clean_slice___loggerctrl_h__
+#define __log_ice_ice_clean_slice___loggerctrl_h__
 
 #include <Ice/LocalObjectF.h>
 #include <Ice/ProxyF.h>
