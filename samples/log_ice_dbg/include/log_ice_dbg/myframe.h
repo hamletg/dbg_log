@@ -37,6 +37,7 @@ public:
     void OnEnableSQLite(wxCommandEvent& event);
 	void OnCloseSQLite(wxCommandEvent& event);
 	void OnLoadDatabase(wxCommandEvent& event);
+	void OnClearText(wxCommandEvent& event);
 
 	wxTreebook *m_treebook;
 

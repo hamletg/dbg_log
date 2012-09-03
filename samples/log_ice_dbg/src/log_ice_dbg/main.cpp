@@ -63,7 +63,8 @@ enum
     Minimal_About = wxID_ABOUT,
     ENABLE_SQLITE = wxID_HIGHEST+1,
 	CLOSE_SQLITE,
-	LOAD_SQLITE
+	LOAD_SQLITE,
+	CLEAR_TEXT,
 };
 
 // ----------------------------------------------------------------------------
@@ -79,6 +80,7 @@ BEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(ENABLE_SQLITE, MyFrame::OnEnableSQLite)
 	EVT_MENU(CLOSE_SQLITE, MyFrame::OnCloseSQLite)
 	EVT_MENU(LOAD_SQLITE, MyFrame::OnLoadDatabase)
+	EVT_MENU(CLEAR_TEXT, MyFrame::OnClearText)
 END_EVENT_TABLE()
 
 // Create a new application object: this macro will allow wxWidgets to create
@@ -167,6 +169,8 @@ MyFrame::MyFrame(const wxString& title)
     helpMenu->Append(Minimal_About, _T("&About...\tF1"), _T("Show about dialog"));
 
     fileMenu->Append(Minimal_Quit, _T("E&xit\tAlt-X"), _T("Quit this program"));
+	wxMenu *cmdMenu = new wxMenu;
+	cmdMenu->Append(CLEAR_TEXT, _T("&Clear Text\tAlt-T"), _T("Clear Text")); 
     m_dbMenu = new wxMenu;
 	m_dbMenu->Append(LOAD_SQLITE, _T("&Load Database ...\tAlt-C"), _T("Load Database")); 
     m_dbMenu->AppendCheckItem(ENABLE_SQLITE, _T("&Enable ...\tAlt-E"), _T("Enable SQLLite"));
@@ -175,6 +179,7 @@ MyFrame::MyFrame(const wxString& title)
     // now append the freshly created menu to the menu bar...
     m_menuBar = new wxMenuBar();
     m_menuBar->Append(fileMenu, _T("&File"));
+	m_menuBar->Append(cmdMenu, _T("&Commands"));
     m_menuBar->Append(m_dbMenu, _T("&SQLite"));
     m_menuBar->Append(helpMenu, _T("&Help"));
 
@@ -297,6 +302,11 @@ void MyFrame::OnCloseSQLite(wxCommandEvent& event)
 	m_dbMenu->Enable(CLOSE_SQLITE,false);
 	m_dbMenu->Enable(ENABLE_SQLITE,true);
 
+}
+
+void MyFrame::OnClearText(wxCommandEvent& event)
+{
+	m_text->Clear();
 }
 
 void MyFrame::OnAbout(wxCommandEvent& WXUNUSED(event))

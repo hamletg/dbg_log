@@ -40,6 +40,9 @@ event_logger::~event_logger()
 void event_logger::SetName(std::string name)
 {
 	m_name=name;
+	if (m_impl!=NULL)
+		if (m_impl->m_loggerctrl_if!=NULL)
+			m_impl->m_loggerctrl_if->SetName(m_id,name);
 }
 
 std::string event_logger::GetName()
