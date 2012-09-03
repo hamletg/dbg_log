@@ -120,6 +120,8 @@ protected:
 	dbg_log::dbg_class_param<type> __up_dbg_class_param##number(name,var); \
 	__up_dbg_class_member_call.AddParam(&__up_dbg_class_param##number);
 
+#define DBG_MSG(msg) __up_dbg_class_member_call.Message(msg);
+
 #else
 
 #define DBG_DEFINE_CLASS(type)
@@ -136,6 +138,8 @@ protected:
 	
 
 #define DBG_PARAM(number,name,type,var)
+
+#define UP_MSG(msg)
 
 #endif
 

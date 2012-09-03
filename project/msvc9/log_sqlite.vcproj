@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\include;$(WXSQLITE)\include;$(WXWIN)\include;$(WXWIN)\lib\vc_dll\mswud"
+				AdditionalIncludeDirectories="..\..\include;$(WXSQLITE3)\include;$(WXWIN)\include;$(WXWIN)\lib\vc_dll\mswud"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CRT_SECURE_NO_DEPRECATE=1;_CRT_NON_CONFORMING_SWPRINTFS=1;_SCL_SECURE_NO_WARNINGS=1;__WXMSW__;_UNICODE;WXUSINGDLL;_WINDOWS;NOPCH;_USRDLL;LOG_SQLITE_EXPORTS;WXUSINGDLL_WXSQLITE3;DBG_LOG_USE;LOGMOD_USE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -69,7 +69,7 @@
 				AdditionalDependencies="dbg_logcd.lib logmodcd.lib wxcode_msw29ud_wxsqlite3.lib wxmsw29ud_core.lib wxbase29ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib wininet.lib"
 				OutputFile="$(OutDir)/$(ProjectName)cd.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(WXSQLITE)\lib\vc_dll;..\..\lib\msvc9"
+				AdditionalLibraryDirectories="$(WXWIN)\lib\vc_dll;$(WXSQLITE3)\lib\vc_dll;..\..\lib\msvc9"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/$(ProjectName)cd.pdb"
 				SubSystem="2"
