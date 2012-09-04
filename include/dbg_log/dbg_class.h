@@ -30,6 +30,7 @@ public:
 	virtual ~dbg_class();
 
 	void Message(const char *msg);                  //!< Send a message 
+	void MessageF(const char *format,...);                  //!< Send a message
 
 	void SetFunctionInfo(dbg_class_function_info *info);
 	//static void SetStaticTextCtrl(wxTextCtrl *text);
@@ -121,6 +122,7 @@ protected:
 	__up_dbg_class_member_call.AddParam(&__up_dbg_class_param##number);
 
 #define DBG_MSG(msg) __up_dbg_class_member_call.Message(msg);
+#define DBG_MSGF(format,...) __up_dbg_class_member_call.MessageF(format,__VA_ARGS__);
 
 #else
 
@@ -139,7 +141,8 @@ protected:
 
 #define DBG_PARAM(number,name,type,var)
 
-#define UP_MSG(msg)
+#define DBG_MSG(msg)
+#define DBG_MSGF(format,...)
 
 #endif
 

@@ -2,6 +2,7 @@
 
 #include "dbg_log/dbg_class.h"
 
+#include <wx/string.h>
 #include <wx/thread.h>
 
 #ifdef WIN32
@@ -75,12 +76,12 @@ dbg_class::dbg_class(const char *name,bool print_state)
 	if (m_dft_event_logger!=NULL)
     {
         //m_os_str << std::endl;
-		m_event.SetDepth(m_my_depth);
+		/*m_event.SetDepth(m_my_depth);
         m_event.SetCallTxt((char *)m_os_str.str().c_str());
 		m_event.SetSubType(dbg_class_event::START_FCT_CALL);
         //m_event.SetTS(logmod::logger::GetTimeStamp());
         //m_event.SetElapsedTime(cur_time-m_start_time);
-        m_dft_event_logger->Send(&m_event);
+        m_dft_event_logger->Send(&m_event); */
     }
 }
 
@@ -191,18 +192,38 @@ dbg_class::~dbg_class()
 
 }
 
+void dbg_class::MessageF(const char *format, ...)
+{
+#ifdef _MSC_VER
+	char result[500];
+
+	va_list args;
+    va_start(args, format);
+
+    vsprintf(result, format, args);
+
+    va_end(args);
+	Message(result);
+
+#else
+
+#endif
+}
+
 void dbg_class::Message(const char *msg)
 {
+	std::ostringstream os_str;
+
     if ((m_dft_event_logger!=NULL)||(m_dft_logger!=NULL))
 	{
-		m_os_str.str("");
-		m_os_str << "[" << m_name << "] message: " << std::endl;
-        m_os_str << "    " << msg << std::endl;
+		os_str.str("");
+		os_str << "[" << m_name << "] message: " << std::endl;
+        os_str << "    " << msg << std::endl;
 	}
 
 	if (m_dft_logger!=NULL)
 #ifndef __GNUC__
-		(*m_dft_logger) << m_os_str.str();
+		(*m_dft_logger) << os_str.str();
 #else
 #endif
 
@@ -211,7 +232,7 @@ void dbg_class::Message(const char *msg)
         m_event.SetDepth(m_my_depth);
         //m_event.SetTS(logmod::logger::GetTimeStamp());
         m_event.SetSubType(dbg_log::dbg_class_event::MSG);   
-        m_event.SetCallTxt((char *)m_os_str.str().c_str());        
+        m_event.SetCallTxt((char *)os_str.str().c_str());        
         m_dft_event_logger->Send(&m_event);
     }
 }
@@ -226,7 +247,7 @@ void dbg_class::AllParamAdded()
 	int aaa,size;
 	dbg_class_param_base *param;
 	std::string s;
-	m_os_str.str("");
+	//m_os_str.str("");
 	
     size=m_params.size();
     for (aaa=0;aaa<size;aaa++)
