@@ -8,7 +8,7 @@
 #include <Ice/Ice.h>
 #include <wx/textctrl.h>
 #include <string>
-#include "log_ice_dbg/ice/Printer.h"
+#include "log_ice_dbg/ice/printer.h"
 
 using namespace std;
 using namespace Demo;
