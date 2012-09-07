@@ -60,8 +60,8 @@ CXX_FILES = \
 
 libdbg_logc_la_SOURCES = $(H_FILES) $(CXX_FILES) 
 
-libdbg_logc_la_LIBADD = \	
-	../src/logmod/liblogmodc.la \
+libdbg_logc_la_LIBADD = \
+	../logmod/liblogmodc.la \
 	.
 
 INCLUDE_DIR = $(prefix)/include/dbg_log
