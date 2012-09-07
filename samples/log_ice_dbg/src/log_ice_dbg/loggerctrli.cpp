@@ -2,6 +2,7 @@
 #include "log_ice_dbg/loggerctrli.h"
 
 #include <sstream>
+#include <wx/string.h>
 
 int loggerctrlI::m_count=0;
 
@@ -23,23 +24,25 @@ loggerctrlI::~loggerctrlI()
 
 	proc=new RegisteredProc();
 	proc->SetName(name);
-	proc->SetId(m_count);
+	proc->SetId(loggerctrlI::m_count);
 	
 	m_v_reg_procs.push_back(proc);
-	m_reg_procs[m_count]=proc;
+	m_reg_procs[loggerctrlI::m_count]=proc;
 
 	if (m_text!=NULL)
 	{
 		std::ostringstream os;
 
-		os << "Process " << name << " registered" << std::endl << "    given id = " << m_count << std::endl;
+		os << "Process " << name << " registered" << std::endl << "    given id = " << loggerctrlI::m_count << std::endl;
 		m_text->AppendText(os.str());
 	}
-	return m_count++;
+	return loggerctrlI::m_count++;
 }
 
 void loggerctrlI::SetName(::Ice::Int id, const ::std::string &name, const ::Ice::Current&)
 {
+	wxString str;
+
 	std::map<int,RegisteredProc *>::iterator it;
 
 	it=m_reg_procs.find(id);
@@ -47,14 +50,23 @@ void loggerctrlI::SetName(::Ice::Int id, const ::std::string &name, const ::Ice:
 	if (it!=m_reg_procs.end())
 	{
 		if ((*it).second!=NULL)
+		{
+			str.Printf("[loggerctrlI::SetName] process id=%i old_name=",id);
+			str.Append((*it).second->GetName().c_str());
+			str.Append(" name=");
+			str.Append(name.c_str());
+			str.Append("\n");
+			m_text->AppendText(str);
+
 			(*it).second->SetName(name);
+		}
 	}
 }
 
 int loggerctrlI::GetName(int id,std::string &name)
 {
-	if ((id<0) || (id>=m_v_reg_procs.size()))
+	if ((id<0) || (id>=m_reg_procs.size()))
 		return -1;
-	name=m_v_reg_procs[id]->GetName();
+	name=m_reg_procs[id]->GetName();
 	return 0;
 }
