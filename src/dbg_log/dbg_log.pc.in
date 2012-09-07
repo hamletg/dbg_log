@@ -8,6 +8,6 @@ includedir=@includedir@
 Name: dbg_log
 Description: dbg_log library
 Version: @PACKAGE_VERSION@
-Libs: -L${libdir} -llog_icec
+Libs: -L${libdir} -ldbg_logc
 Libs.private: @LIBS@
 Cflags: -I${includedir}
