@@ -16,6 +16,7 @@ class DBG_LOG_API dbg_class_param_base
 {
 public:
     dbg_class_param_base(char *name,bool output=false); //!< Constructor
+	dbg_class_param_base(const char *name,bool output=false); //!< Constructor
     dbg_class_param_base(char *name,int len,bool output=false); //!< Constructor
     virtual ~dbg_class_param_base();                    //!< Destructor
 
@@ -25,7 +26,7 @@ public:
     void SetOuput(bool value=true);     //!< Set the flag saying if the parameter is used to return a value
 
 protected:
-    char *m_name;			///< Name the parameter
+    const char *m_name;		///< Name the parameter
     bool m_output_param;	///< True is the parameter is used to output a value
     bool m_is_array;        //!< True if the parameter should be handled as an array
     int m_array_len;        //!< If m_is_array is true, gives the len of the array

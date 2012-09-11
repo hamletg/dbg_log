@@ -9,6 +9,10 @@ dbg_class_param_base::dbg_class_param_base(char *name,bool output)
     :m_name(name),m_output_param(output),m_is_array(false),m_array_len(0)
 {}
 
+dbg_class_param_base::dbg_class_param_base(const char *name,bool output)
+    :m_name(name),m_output_param(output),m_is_array(false),m_array_len(0)
+{}
+
 dbg_class_param_base::dbg_class_param_base(char *name,int len,bool output)
     :m_name(name),m_output_param(output),m_is_array(true),m_array_len(len)
 {}

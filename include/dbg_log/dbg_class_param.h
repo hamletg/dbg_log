@@ -18,6 +18,7 @@ class dbg_class_param: public dbg_class_param_base
 {
 public:
     dbg_class_param(char *name,T &value,bool output=false);     //!< Constructor
+	dbg_class_param(const char *name,T &value,bool output=false);     //!< Constructor
     dbg_class_param(char *name,T &value,int len,bool output=false);     //!< Constructor
     virtual ~dbg_class_param();                                 //!< Destructor
 
@@ -29,6 +30,11 @@ public:
 
 template<class T>
 dbg_class_param<T>::dbg_class_param(char *name,T &value,bool output)
+    :dbg_class_param_base(name,output),m_value(value)
+{}
+
+template<class T>
+dbg_class_param<T>::dbg_class_param(const char *name,T &value,bool output)
     :dbg_class_param_base(name,output),m_value(value)
 {}
 
