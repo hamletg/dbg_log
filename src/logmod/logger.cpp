@@ -1,5 +1,6 @@
 #include "logmod/logmod_prec.h"
 #include "logmod/logger.h"
+#include "logmod/wxtextctrlts.h"
 
 #include <wx/thread.h>
 #include <wx/textctrl.h>
@@ -96,7 +97,7 @@ logger::~logger()
         delete m_transaction_mutex;
 }
 
-void logger::SetTextCtrl(wxTextCtrl *text)
+void logger::SetTextCtrl(wxTextCtrlTS *text)
 {
 	if (m_ofs!=NULL)
 		SetOfstream(NULL);
@@ -119,7 +120,7 @@ void logger::SetTextCtrl(wxTextCtrl *text)
 	}
 }
 
-wxTextCtrl *logger::GetTextCtrl()
+wxTextCtrlTS *logger::GetTextCtrl()
 {
 	return m_text_ctrl;
 }

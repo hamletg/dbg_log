@@ -27,6 +27,7 @@ logmod::logger *dbg_class::m_dft_logger=NULL;
 logmod::event_logger *dbg_class::m_dft_event_logger=NULL;
 
 int dbg_class::m_thread_count=0;
+int dbg_class::m_thread_name_width=8;
 std::map<uint64_t,dbg_class_thread> dbg_class::m_named_threads;
 
 bool old_way=true;
@@ -100,6 +101,7 @@ dbg_class::dbg_class(dbg_class *dbg)
 	if (dbg!=NULL)
     {
         m_my_depth=dbg->m_my_depth;
+		m_thread_info=dbg->m_thread_info;
         m_print_state=dbg->m_print_state;
 
         m_logger=dbg->m_logger;    
@@ -363,7 +365,7 @@ void dbg_class::PrintDepth(std::ostream &os)
 		os << "    ";
 }
 
-void dbg_class::PrintProcessId(std::ostream &os, int id)
+void dbg_class::PrintRegId(std::ostream &os, int id)
 {
 	int aaa;
 
@@ -373,6 +375,21 @@ void dbg_class::PrintProcessId(std::ostream &os, int id)
 	os << std::right << id;
 	os.width(0);
 	os << "]";
+}
+
+void dbg_class::PrintThreadName(std::ostream &os)
+{
+	if (m_diff_thread==false)
+		return;
+	if (m_thread_info==NULL)
+		return;
+	os << "[";
+	os.width(m_thread_name_width);
+	os.fill(' ');
+	os << std::right << m_thread_info->GetName();
+	os.width(0);
+	os << "]";
+
 }
 
 int dbg_class::GetDepth()
@@ -512,6 +529,16 @@ void dbg_class::SetDefaultEventLogger(logmod::event_logger *log)
 logmod::logger *dbg_class::GetDefaultLogger()
 {
 	return dbg_class::m_dft_logger;
+}
+
+void dbg_class::SetThreadNameWidth(int size)
+{
+	m_thread_name_width=size;
+}
+
+int dbg_class::GetThreadNameWidth()
+{
+	return m_thread_name_width;
 }
 
 }

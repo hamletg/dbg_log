@@ -7,10 +7,10 @@
 #include <ostream>
 #include <sstream>
 
-class wxTextCtrl;
-
 namespace logmod
 {
+
+class LOGMOD_API wxTextCtrlTS;
 
 class logger_mutex_api
 {
@@ -28,8 +28,8 @@ public:
 	logger();
 	virtual ~logger();
 
-	void SetTextCtrl(wxTextCtrl *text);
-	wxTextCtrl *GetTextCtrl();
+	void SetTextCtrl(wxTextCtrlTS *text);
+	wxTextCtrlTS *GetTextCtrl();
 
 	void SetOfstream(std::ofstream *ofs);
 	std::ofstream *GetOfstream();
@@ -63,7 +63,7 @@ protected:
 	std::ostream *m_os;
 	std::ofstream *m_ofs;
 	std::streambuf *m_streambuf;
-	wxTextCtrl *m_text_ctrl;
+	wxTextCtrlTS *m_text_ctrl;
 	int m_depth;
 	int m_depth_size;
 	int m_static_header_size;

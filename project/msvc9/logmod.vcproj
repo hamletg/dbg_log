@@ -252,6 +252,10 @@
 				RelativePath="..\..\src\logmod\option_event.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\src\logmod\wxtextctrlts.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -308,6 +312,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\logmod\version.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\logmod\wxtextctrlts.h"
 				>
 			</File>
 		</Filter>

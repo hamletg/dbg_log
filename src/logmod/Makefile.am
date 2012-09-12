@@ -45,7 +45,8 @@ INST_FILES = \
 	logmod_defs.h \
 	logmod_prec.h \
 	option_event.h \
-	version.h
+	version.h \
+	wxtextctrlts.h
 
 CXX_FILES = \
 	blob_event.cpp \
@@ -58,7 +59,8 @@ CXX_FILES = \
 	logger_event.cpp \
 	logmod_dll.cpp \
 	logmod_prec.cpp \
-	option_event.cpp
+	option_event.cpp \
+	wxtextctrlts.cpp
 	
 liblogmodc_la_SOURCES = $(H_FILES) $(CXX_FILES) 
 

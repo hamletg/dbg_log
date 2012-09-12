@@ -47,11 +47,12 @@ public:
 	void AddParam(dbg_class_param_base *param);     //!< Add a parameter to be traced
 	void SetReturn(dbg_class_param_base *ret);      //!< Set the return value to be traced
 	void PrintBlankHeader(std::ostream &os);
-	void PrintProcessId(std::ostream &os, int id);
+	void PrintRegId(std::ostream &os, int id);
 	void PrintParamHeader(std::ostream &os);
 	void PrintReturnHeader(std::ostream &os);
 	void PrintCurTime(std::ostream &os);
 	void PrintDepth(std::ostream &os);
+	void PrintThreadName(std::ostream &os);
 
 	static void SetThreadName(const char *name);
 	static void SetDifferentiateThread(bool value);
@@ -60,9 +61,13 @@ public:
 	static void SetDefaultLogger(logmod::logger *logger);
 	static logmod::logger *GetDefaultLogger();
 	static void SetDefaultEventLogger(logmod::event_logger *log);  //!< Set the default event logger
+
+	static void SetThreadNameWidth(int size);
+	static int GetThreadNameWidth();
 protected:
 	static int m_depth;                             //!< Overall calling depth
 	static bool m_diff_thread;
+	static int m_thread_name_width;
     int m_my_depth;                                 //!< Local calling depth
 	//static wxTextCtrl *m_text;
 	bool m_end;                                     //!< True if the last in the stack
