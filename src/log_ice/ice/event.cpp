@@ -85,7 +85,7 @@ IceProxy::loggerice::event::__newInstance() const
     return new event;
 }
 
-loggerice::event::event(::Ice::Int __ice_type, ::Ice::Long __ice_ts, ::Ice::Int __ice_srctype, ::Ice::Int __ice_srcid, ::Ice::Int __ice_kind, ::Ice::Long __ice_key, ::Ice::Long __ice_timeMs, ::Ice::Long __ice_threadId, ::Ice::Int __ice_procId) :
+loggerice::event::event(::Ice::Int __ice_type, ::Ice::Long __ice_ts, ::Ice::Int __ice_srctype, ::Ice::Int __ice_srcid, ::Ice::Int __ice_kind, ::Ice::Long __ice_key, ::Ice::Long __ice_timeMs, ::Ice::Long __ice_threadId, ::Ice::Int __ice_regId) :
     type(__ice_type),
     ts(__ice_ts),
     srctype(__ice_srctype),
@@ -94,7 +94,7 @@ loggerice::event::event(::Ice::Int __ice_type, ::Ice::Long __ice_ts, ::Ice::Int 
     key(__ice_key),
     timeMs(__ice_timeMs),
     threadId(__ice_threadId),
-    procId(__ice_procId)
+    regId(__ice_regId)
 {
 }
 
@@ -148,7 +148,7 @@ loggerice::event::__write(::IceInternal::BasicStream* __os) const
     __os->write(key);
     __os->write(timeMs);
     __os->write(threadId);
-    __os->write(procId);
+    __os->write(regId);
     __os->endWriteSlice();
 #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
     Object::__write(__os);
@@ -174,7 +174,7 @@ loggerice::event::__read(::IceInternal::BasicStream* __is, bool __rid)
     __is->read(key);
     __is->read(timeMs);
     __is->read(threadId);
-    __is->read(procId);
+    __is->read(regId);
     __is->endReadSlice();
 #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
     Object::__read(__is, true);

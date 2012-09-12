@@ -221,6 +221,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\dbg_log\dbg_class_thread.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\dbg_log\dbg_log.cpp"
 				>
 			</File>
@@ -284,6 +288,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\dbg_log\dbg_class_prof_bug.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\dbg_log\dbg_class_thread.h"
 				>
 			</File>
 			<File

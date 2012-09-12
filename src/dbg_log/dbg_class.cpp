@@ -14,15 +14,20 @@
 #endif
 
 #include <ios>
+#include <sstream>
 
 namespace dbg_log
 {
 
 //wxTextCtrl *dbg_class::m_text=NULL;
 
+bool dbg_class::m_diff_thread=false;
 int dbg_class::m_depth=0;
 logmod::logger *dbg_class::m_dft_logger=NULL;
 logmod::event_logger *dbg_class::m_dft_event_logger=NULL;
+
+int dbg_class::m_thread_count=0;
+std::map<uint64_t,dbg_class_thread> dbg_class::m_named_threads;
 
 bool old_way=true;
 
@@ -31,10 +36,11 @@ dbg_class::dbg_class(const char *name,bool print_state)
 	, m_name(name), m_logger(NULL)
 {
 	int aaa;
+	
+	//m_my_depth=dbg_class::m_depth;
+	m_my_depth=dbg_class::Depth(&m_thread_info);
 
-	m_my_depth=dbg_class::m_depth;
-
-	dbg_class::IncDepth();
+	dbg_class::IncDepth(m_thread_info);
 
 	//(*logger) << logmod::time;
     m_os_str.str(""); 
@@ -43,15 +49,13 @@ dbg_class::dbg_class(const char *name,bool print_state)
 	//PrintProcessId(m_os_str);
 	m_os_str << "[" << name << "] enters" << std::endl;
 
-	
-
 	if (m_logger!=NULL)
 	{
 		m_logger->Begin();
 #ifndef __GNUC__
 		(*m_logger) << (m_os_str.str());
 #else
-		
+		(*m_logger) << (m_os_str.str());
 #endif
 		m_logger->End();
 	}
@@ -68,6 +72,7 @@ dbg_class::dbg_class(const char *name,bool print_state)
 #ifndef __GNUC__
 		(*m_dft_logger) << m_os_str.str();
 #else
+		(*m_dft_logger) << m_os_str.str();
 #endif
 		if (!old_way)
 			m_dft_logger->HeaderEnable(true);
@@ -119,7 +124,7 @@ dbg_class::~dbg_class()
 
 	if (m_end==false)
     {
-        dbg_class::DecDepth();
+        dbg_class::DecDepth(m_thread_info);
         return; 
     }
 
@@ -161,6 +166,7 @@ dbg_class::~dbg_class()
 #ifndef __GNUC__
 		(*m_logger) << m_os_str.str();
 #else
+		(*m_logger) << m_os_str.str();
 #endif
 		m_logger->End();
 	}
@@ -175,6 +181,7 @@ dbg_class::~dbg_class()
 #ifndef __GNUC__
 		(*m_dft_logger) << (m_os_str.str());
 #else
+		(*m_dft_logger) << (m_os_str.str());
 #endif
 		if (!old_way)
 			m_dft_logger->HeaderEnable(true);
@@ -225,6 +232,7 @@ void dbg_class::Message(const char *msg)
 #ifndef __GNUC__
 		(*m_dft_logger) << os_str.str();
 #else
+		(*m_dft_logger) << os_str.str();
 #endif
 
     if (m_dft_event_logger!=NULL)
@@ -372,19 +380,59 @@ int dbg_class::GetDepth()
     return dbg_class::m_depth;
 }
 
-void dbg_class::IncDepth()
+void dbg_class::IncDepth(dbg_class_thread *thread_info)
 {
-    dbg_class::m_depth++;
+	if (thread_info==NULL)
+		dbg_class::m_depth++;
+	else
+		thread_info->IncDepth();
 }
 
-void dbg_class::DecDepth()
+void dbg_class::DecDepth(dbg_class_thread *thread_info)
 {
-    dbg_class::m_depth--;
+	if (thread_info==NULL)
+		dbg_class::m_depth--;
+	else
+		thread_info->DecDepth();
 }
 
 void dbg_class::ResetDepth()
 {
     dbg_class::m_depth=0;
+}
+
+int dbg_class::Depth(dbg_class_thread **thread_info)
+{
+	if (m_diff_thread==false)
+	{
+		if (thread_info!=NULL)
+			*thread_info=NULL;
+		return dbg_class::m_depth;
+	}
+
+	std::map<uint64_t,dbg_class_thread>::iterator it;
+	uint64_t id=wxThread::GetCurrentId();
+
+	it=m_named_threads.find(id);
+	if (it!=m_named_threads.end())
+	{
+		if (thread_info!=NULL)
+			*thread_info=&(*it).second;
+		return (*it).second.GetDepth();
+	}
+	std::ostringstream oss;
+	dbg_class_thread thread;
+
+	oss << "Thread";
+	oss.width(2);
+	oss.fill('0');
+	oss << m_thread_count;
+	thread.SetName(oss.str());
+	thread.SetId(id);
+	m_named_threads[id]=thread;
+	if (thread_info!=NULL)
+		*thread_info=&m_named_threads[id];
+	return 0;
 }
 
 /*void dbg_class::SetStaticTextCtrl(wxTextCtrl *text)
@@ -396,6 +444,28 @@ void dbg_class::ResetDepth()
 {
 	return dbg_class::m_text;
 } */
+
+void dbg_class::SetThreadName(const char *name)
+{
+	std::map<uint64_t,dbg_class_thread>::iterator it; // m_named_threads
+	uint64_t id=wxThread::GetCurrentId();
+	dbg_class_thread thread;
+
+	thread.SetId(id);
+	thread.SetName(name);
+
+	it=m_named_threads.find(id);
+
+	if (it==m_named_threads.end())
+	{
+		m_named_threads[id]=thread;	
+	}
+	else
+	{
+		m_named_threads[id]=thread;
+	}
+
+}
 
 uint64_t dbg_class::GetCurTime()
 {
@@ -422,6 +492,11 @@ uint64_t dbg_class::GetCurTime()
 uint32_t dbg_class::GetCurThreaId()
 {
 	return wxThread::GetCurrentId();
+}
+
+void dbg_class::SetDifferentiateThread(bool value)
+{
+	m_diff_thread=value;
 }
 
 void dbg_class::SetDefaultLogger(logmod::logger *logger)

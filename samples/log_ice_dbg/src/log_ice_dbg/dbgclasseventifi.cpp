@@ -51,13 +51,13 @@ void dbgclasseventifI::sendevent(const ::loggerice::dbgclasseventPtr& s, const :
 			case PROC_ID:
 				os << "[proc ";
 				os.width(2);
-				os << s->procId;
+				os << s->regId;
 				os.width(0);
 				os << "]";
 				break;
 			case PROC_NAME:
 				
-				m_logger_ctrl->GetName(s->procId,name);
+				m_logger_ctrl->GetName(s->regId,name);
 				os << "[";
 				os.width(10);
 				os << name;

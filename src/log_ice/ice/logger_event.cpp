@@ -288,11 +288,11 @@ IceDelegateD::loggerice::loggereventif::sendevent(const ::loggerice::loggerevent
     }
 }
 
-loggerice::loggerevent::loggerevent(::Ice::Int __ice_type, ::Ice::Long __ice_ts, ::Ice::Int __ice_srctype, ::Ice::Int __ice_srcid, ::Ice::Int __ice_kind, ::Ice::Long __ice_key, ::Ice::Long __ice_timeMs, ::Ice::Long __ice_threadId, ::Ice::Int __ice_procId, ::Ice::Long __ice_subType, ::Ice::Long __ice_value, const ::std::string& __ice_name) :
+loggerice::loggerevent::loggerevent(::Ice::Int __ice_type, ::Ice::Long __ice_ts, ::Ice::Int __ice_srctype, ::Ice::Int __ice_srcid, ::Ice::Int __ice_kind, ::Ice::Long __ice_key, ::Ice::Long __ice_timeMs, ::Ice::Long __ice_threadId, ::Ice::Int __ice_regId, ::Ice::Long __ice_subType, ::Ice::Long __ice_value, const ::std::string& __ice_name) :
 #if defined(_MSC_VER) && (_MSC_VER < 1300) // VC++ 6 compiler bug
-    event(__ice_type, __ice_ts, __ice_srctype, __ice_srcid, __ice_kind, __ice_key, __ice_timeMs, __ice_threadId, __ice_procId)
+    event(__ice_type, __ice_ts, __ice_srctype, __ice_srcid, __ice_kind, __ice_key, __ice_timeMs, __ice_threadId, __ice_regId)
 #else
-    ::loggerice::event(__ice_type, __ice_ts, __ice_srctype, __ice_srcid, __ice_kind, __ice_key, __ice_timeMs, __ice_threadId, __ice_procId)
+    ::loggerice::event(__ice_type, __ice_ts, __ice_srctype, __ice_srcid, __ice_kind, __ice_key, __ice_timeMs, __ice_threadId, __ice_regId)
 #endif
 ,
     subType(__ice_subType),

@@ -155,7 +155,7 @@ void event_logger::Send(logmod::event *evt)
 		return;
 
     event_t=evt->GetType();
-	evt->SetProcId(m_id);
+	evt->SetRegId(m_id);
 
 	if (event_t->GetId()==logmod::evt_typ::EVT_DBG_CLASS.GetId())
 	{		        
@@ -189,7 +189,7 @@ void event_logger::HandleDbgClassEvent(logmod::event *evt)
 	m_impl->my_dbg_class_event->key=_evt->GetKey();
 	m_impl->my_dbg_class_event->timeMs=_evt->GetTime();  
 	m_impl->my_dbg_class_event->threadId=_evt->GetThreadId();
-	m_impl->my_dbg_class_event->procId=_evt->GetProcId();
+	m_impl->my_dbg_class_event->regId=_evt->GetRegId();
 
 	m_impl->my_dbg_class_event->depth=_evt->GetDepth();
 	m_impl->my_dbg_class_event->callTxt=_evt->GetCallTxt();

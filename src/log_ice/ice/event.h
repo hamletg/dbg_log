@@ -416,7 +416,7 @@ public:
 
     ::Ice::Long threadId;
 
-    ::Ice::Int procId;
+    ::Ice::Int regId;
 };
 
 class event__staticInit

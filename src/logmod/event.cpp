@@ -12,6 +12,7 @@
 
 #include "logmod/event.h"
 #include <wx/thread.h>
+#include <wx/utils.h> 
 
 #ifdef WIN32
 #include <sys/types.h> 
@@ -24,12 +25,18 @@
 namespace logmod
 {
 
-uint32_t event::GetCurThreaId()
+uint64_t event::GetCurThreadId()
 {
 	return wxThread::GetCurrentId();
 }
 
-event::event(event_type *type):m_type(type),m_thread_id(0)
+uint64_t event::GetCurProcessId()
+{
+	return wxGetProcessId();
+}
+
+event::event(event_type *type)
+	: m_type(type), m_thread_id(0), m_process_id(0)
 {
     m_event_kind=NONE;
     m_src_id=0;
@@ -125,14 +132,14 @@ uint64_t event::GetCurTime()
     return result;
 }
 
-int32_t event::GetProcId()
+int32_t event::GetRegId()
 {
-	return m_proc_id;
+	return m_reg_id;
 }
 
-void event::SetProcId(int32_t id)
+void event::SetRegId(int32_t id)
 {
-	m_proc_id=id;
+	m_reg_id=id;
 }
 
 void event::MarkWithCurTime()
@@ -163,6 +170,11 @@ void event::SetThreadId(uint32_t thread_id)
 void event::CaptureThreadId()
 {
 	m_thread_id=wxThread::GetCurrentId();
+}
+
+void event::CaptureProcessId()
+{
+	m_process_id=wxGetProcessId();
 }
 
 std::ostream &event::PrintString(std::ostream &os)

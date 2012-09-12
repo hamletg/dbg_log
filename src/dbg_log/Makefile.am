@@ -55,6 +55,7 @@ CXX_FILES = \
 	dbg_class_param_base.cpp \
 	dbg_class_prof.cpp \
 	dbg_class_prof_bug.cpp \
+	dbg_class_thread.cpp \
 	dbg_log.cpp \
 	dbg_log_prec.cpp
 

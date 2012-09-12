@@ -11,6 +11,7 @@
 #include "dbg_log/dbg_class_param_base.h"
 #include "dbg_log/dbg_class_param.h"
 #include "dbg_log/dbg_class_event.h"
+#include "dbg_log/dbg_class_thread.h"
 #include "logmod/event_logger.h"
 
 #include "logmod/logger.h"
@@ -18,6 +19,7 @@
 #include <ostream>
 #include <vector>
 #include <sstream>
+#include <map>
 
 namespace dbg_log
 {
@@ -37,9 +39,10 @@ public:
 	//static wxTextCtrl *GetStaticTextCtrl();
 
 	virtual int GetDepth();             //!< Give the calling depth
-    void IncDepth();                    //!< Increment by one the calling depth
-    void DecDepth();                    //!< Decrement by one the calling depth
+    void IncDepth(dbg_class_thread *thread_info=NULL);	//!< Increment by one the calling depth
+    void DecDepth(dbg_class_thread *thread_info=NULL);	//!< Decrement by one the calling depth
     static void ResetDepth();           //!< Set the depth to zero
+	static int Depth(dbg_class_thread **thread_info=NULL);             //!< Give the calling depth
 	void AllParamAdded();                           //!< All parameters where added
 	void AddParam(dbg_class_param_base *param);     //!< Add a parameter to be traced
 	void SetReturn(dbg_class_param_base *ret);      //!< Set the return value to be traced
@@ -49,6 +52,9 @@ public:
 	void PrintReturnHeader(std::ostream &os);
 	void PrintCurTime(std::ostream &os);
 	void PrintDepth(std::ostream &os);
+
+	static void SetThreadName(const char *name);
+	static void SetDifferentiateThread(bool value);
 	static uint64_t GetCurTime();
 	static uint32_t GetCurThreaId();
 	static void SetDefaultLogger(logmod::logger *logger);
@@ -56,6 +62,7 @@ public:
 	static void SetDefaultEventLogger(logmod::event_logger *log);  //!< Set the default event logger
 protected:
 	static int m_depth;                             //!< Overall calling depth
+	static bool m_diff_thread;
     int m_my_depth;                                 //!< Local calling depth
 	//static wxTextCtrl *m_text;
 	bool m_end;                                     //!< True if the last in the stack
@@ -70,6 +77,9 @@ protected:
     static logmod::logger *m_dft_logger;            //!< The default logger
 	static logmod::event_logger *m_dft_event_logger;//!< The default event logger;
 	dbg_class_event m_event;                        //!< Event which can be logged
+	static std::map<uint64_t,dbg_class_thread> m_named_threads;
+	static int m_thread_count;
+	dbg_class_thread *m_thread_info;
 };
 
 }

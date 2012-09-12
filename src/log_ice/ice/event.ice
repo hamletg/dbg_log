@@ -23,7 +23,7 @@ class event
     long key;
     long timeMs;  
 	long threadId;
-	int procId;
+	int regId;
 };
 
 };

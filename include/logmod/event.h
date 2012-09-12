@@ -63,16 +63,21 @@ class LOGMOD_API event
     uint64_t GetTime();
     void SetTime(uint64_t time);
 	
-	int32_t GetProcId();
-	void SetProcId(int32_t id);
-		
+	int32_t GetRegId();
+	void SetRegId(int32_t id);
+	
+	int64_t GetProcessId();
+	void SetProcessId(int64_t id);
+
 	uint32_t GetThreadId();
 	void SetThreadId(uint32_t thread_id);
 	void CaptureThreadId();
+	void CaptureProcessId();
 
 	virtual std::ostream &PrintString(std::ostream &os);
 
-	static uint32_t GetCurThreaId();
+	static uint64_t GetCurThreadId();
+	static uint64_t GetCurProcessId();
  protected:
     event_type *m_type;         //!< Type of event, every derivate class will must have a different number
     uint64_t m_ts;              //!< Timestamp in ps
@@ -81,8 +86,9 @@ class LOGMOD_API event
     event_kind m_event_kind;    //!< Tells the kind event: input, output, state, etc.
     int64_t m_key;              //!< Used by some event to return the key of the posted event
     uint64_t m_time_ms;         //!< PC time in ms
-	uint32_t m_thread_id;
-	int32_t m_proc_id;
+	uint64_t m_thread_id;
+	uint32_t m_reg_id;
+	uint64_t m_process_id;
 };
 
 }
