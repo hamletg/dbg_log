@@ -42,6 +42,7 @@ INST_FILES = \
 	dbg_class_param_base.h \
 	dbg_class_prof.h \
 	dbg_class_prof_bug.h \
+	dbg_class_thread.h \
 	dbg_log_defs.h \
 	dbg_log_prec.h \
 	inttypes.h \
