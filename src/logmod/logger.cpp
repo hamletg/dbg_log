@@ -138,6 +138,16 @@ std::ofstream *logger::GetOfstream()
 	return m_ofs;
 }
 
+void logger::SetOstream(std::ostream *os)
+{
+	m_os=os;
+}
+
+std::ostream *logger::GetOstream()
+{
+	return m_os;
+}
+
 void logger::Begin()
 {
 #ifdef LOGGER_WITH_WXMUTEX

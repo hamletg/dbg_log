@@ -34,6 +34,9 @@ public:
 	void SetOfstream(std::ofstream *ofs);
 	std::ofstream *GetOfstream();
 
+	void SetOstream(std::ostream *os);
+	std::ostream *GetOstream();
+
 	virtual void Begin();
     virtual void End();
 
