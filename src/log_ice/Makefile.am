@@ -84,6 +84,7 @@ uninstall-local:
 	for file in $(INST_FILES); do \
 	  rm -f $(INCLUDE_DIR)/$$file; \
 	done
+	-rmdir $(INCLUDE_DIR)/ice
 	-rmdir $(INCLUDE_DIR)
 
 ## Taf!

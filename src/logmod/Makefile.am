@@ -88,6 +88,8 @@ uninstall-local:
 	for file in $(INST_FILES); do \
 	  rm -f $(INCLUDE_DIR)/$$file; \
 	done
+	rm -f $(INCLUDE_DIR)/unix/setup.h
+	-rmdir $(INCLUDE_DIR)/unix
 	-rmdir $(INCLUDE_DIR)
 
 
