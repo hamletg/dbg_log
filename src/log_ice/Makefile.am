@@ -81,7 +81,7 @@ install-data-local:
 
 uninstall-local:
 	@$(NORMAL_UNINSTALL)
-	for file in $(noinst_HEADERS); do \
+	for file in $(INST_FILES); do \
 	  rm -f $(INCLUDE_DIR)/$$file; \
 	done
 	-rmdir $(INCLUDE_DIR)
