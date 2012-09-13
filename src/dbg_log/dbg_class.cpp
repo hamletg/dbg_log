@@ -361,7 +361,7 @@ void dbg_class::PrintDepth(std::ostream &os)
 	os.width(0);
 	os << "]";
 
-	for (aaa=0;aaa<dbg_class::m_depth;aaa++)
+	for (aaa=0;aaa<m_my_depth;aaa++)
 		os << "    ";
 }
 
