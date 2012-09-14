@@ -89,6 +89,7 @@ dbg_class::dbg_class(const char *name,bool print_state)
         //m_event.SetElapsedTime(cur_time-m_start_time);
         m_dft_event_logger->Send(&m_event); */
     }
+	m_os_str.str("");
 }
 
 dbg_class::dbg_class(dbg_class *dbg)
