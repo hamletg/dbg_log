@@ -23,11 +23,20 @@ class dbgclasseventifI: public loggerice::dbgclasseventif
 	void SetPrintProcName(bool print=true);
 	void SetPrintProcId(bool print=true);
 
+	void SetPrintThreadName(bool print=true);
+	void SetPrintThreadId(bool print=true);
+
 	enum
 	{
 		PROC_NO_PRINT,
 		PROC_NAME,
 		PROC_ID
+	};
+	enum
+	{
+		THREAD_NO_PRINT,
+		THREAD_NAME,
+		THREAD_ID
 	};
     wxTextCtrl *m_text;
     sqlitectrlI *m_sqlite;
@@ -35,6 +44,7 @@ class dbgclasseventifI: public loggerice::dbgclasseventif
     std::ostream *m_ofs;
 	dbg_log::dbg_class_event m_evt;
 	int m_print_proc;
+	int m_print_thread;
 };
 
 #endif

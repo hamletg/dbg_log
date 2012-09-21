@@ -17,6 +17,7 @@ interface loggerctrl
 {
 	int Register(string name);
 	void SetName(int id, string name);
+	void SetThreadName(int regid, long threadid, string name);
 };
 
 };

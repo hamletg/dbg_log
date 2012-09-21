@@ -43,6 +43,8 @@ static const ::std::string __loggerice__loggerctrl__Register_name = "Register";
 
 static const ::std::string __loggerice__loggerctrl__SetName_name = "SetName";
 
+static const ::std::string __loggerice__loggerctrl__SetThreadName_name = "SetThreadName";
+
 ICE_DECLSPEC_EXPORT ::Ice::Object* IceInternal::upCast(::loggerice::loggerctrl* p) { return p; }
 ICE_DECLSPEC_EXPORT ::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::loggerctrl* p) { return p; }
 
@@ -184,6 +186,58 @@ IceProxy::loggerice::loggerctrl::end_SetName(const ::Ice::AsyncResultPtr& __resu
     __end(__result, __loggerice__loggerctrl__SetName_name);
 }
 
+void
+IceProxy::loggerice::loggerctrl::SetThreadName(::Ice::Int regid, ::Ice::Long threadid, const ::std::string& name, const ::Ice::Context* __ctx)
+{
+    int __cnt = 0;
+    while(true)
+    {
+        ::IceInternal::Handle< ::IceDelegate::Ice::Object> __delBase;
+        try
+        {
+            __delBase = __getDelegate(false);
+            ::IceDelegate::loggerice::loggerctrl* __del = dynamic_cast< ::IceDelegate::loggerice::loggerctrl*>(__delBase.get());
+            __del->SetThreadName(regid, threadid, name, __ctx);
+            return;
+        }
+        catch(const ::IceInternal::LocalExceptionWrapper& __ex)
+        {
+            __handleExceptionWrapper(__delBase, __ex);
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            __handleException(__delBase, __ex, true, __cnt);
+        }
+    }
+}
+
+::Ice::AsyncResultPtr
+IceProxy::loggerice::loggerctrl::begin_SetThreadName(::Ice::Int regid, ::Ice::Long threadid, const ::std::string& name, const ::Ice::Context* __ctx, const ::IceInternal::CallbackBasePtr& __del, const ::Ice::LocalObjectPtr& __cookie)
+{
+    ::IceInternal::OutgoingAsyncPtr __result = new ::IceInternal::OutgoingAsync(this, __loggerice__loggerctrl__SetThreadName_name, __del, __cookie);
+    try
+    {
+        __result->__prepare(__loggerice__loggerctrl__SetThreadName_name, ::Ice::Normal, __ctx);
+        ::IceInternal::BasicStream* __os = __result->__getOs();
+        __os->write(regid);
+        __os->write(threadid);
+        __os->write(name);
+        __os->endWriteEncaps();
+        __result->__send(true);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __result->__exceptionAsync(__ex);
+    }
+    return __result;
+}
+
+void
+IceProxy::loggerice::loggerctrl::end_SetThreadName(const ::Ice::AsyncResultPtr& __result)
+{
+    __end(__result, __loggerice__loggerctrl__SetThreadName_name);
+}
+
 const ::std::string&
 IceProxy::loggerice::loggerctrl::ice_staticId()
 {
@@ -257,6 +311,47 @@ IceDelegateM::loggerice::loggerctrl::SetName(::Ice::Int id, const ::std::string&
     {
         ::IceInternal::BasicStream* __os = __og.os();
         __os->write(id);
+        __os->write(name);
+    }
+    catch(const ::Ice::LocalException& __ex)
+    {
+        __og.abort(__ex);
+    }
+    bool __ok = __og.invoke();
+    if(!__og.is()->b.empty())
+    {
+        try
+        {
+            if(!__ok)
+            {
+                try
+                {
+                    __og.throwUserException();
+                }
+                catch(const ::Ice::UserException& __ex)
+                {
+                    ::Ice::UnknownUserException __uue(__FILE__, __LINE__, __ex.ice_name());
+                    throw __uue;
+                }
+            }
+            __og.is()->skipEmptyEncaps();
+        }
+        catch(const ::Ice::LocalException& __ex)
+        {
+            throw ::IceInternal::LocalExceptionWrapper(__ex, false);
+        }
+    }
+}
+
+void
+IceDelegateM::loggerice::loggerctrl::SetThreadName(::Ice::Int regid, ::Ice::Long threadid, const ::std::string& name, const ::Ice::Context* __context)
+{
+    ::IceInternal::Outgoing __og(__handler.get(), __loggerice__loggerctrl__SetThreadName_name, ::Ice::Normal, __context);
+    try
+    {
+        ::IceInternal::BasicStream* __os = __og.os();
+        __os->write(regid);
+        __os->write(threadid);
         __os->write(name);
     }
     catch(const ::Ice::LocalException& __ex)
@@ -423,6 +518,74 @@ IceDelegateD::loggerice::loggerctrl::SetName(::Ice::Int id, const ::std::string&
     }
 }
 
+void
+IceDelegateD::loggerice::loggerctrl::SetThreadName(::Ice::Int regid, ::Ice::Long threadid, const ::std::string& name, const ::Ice::Context* __context)
+{
+    class _DirectI : public ::IceInternal::Direct
+    {
+    public:
+
+        _DirectI(::Ice::Int regid, ::Ice::Long threadid, const ::std::string& name, const ::Ice::Current& __current) : 
+            ::IceInternal::Direct(__current),
+            _m_regid(regid),
+            _m_threadid(threadid),
+            _m_name(name)
+        {
+        }
+        
+        virtual ::Ice::DispatchStatus
+        run(::Ice::Object* object)
+        {
+            ::loggerice::loggerctrl* servant = dynamic_cast< ::loggerice::loggerctrl*>(object);
+            if(!servant)
+            {
+                throw ::Ice::OperationNotExistException(__FILE__, __LINE__, _current.id, _current.facet, _current.operation);
+            }
+            servant->SetThreadName(_m_regid, _m_threadid, _m_name, _current);
+            return ::Ice::DispatchOK;
+        }
+        
+    private:
+        
+        ::Ice::Int _m_regid;
+        ::Ice::Long _m_threadid;
+        const ::std::string& _m_name;
+    };
+    
+    ::Ice::Current __current;
+    __initCurrent(__current, __loggerice__loggerctrl__SetThreadName_name, ::Ice::Normal, __context);
+    try
+    {
+        _DirectI __direct(regid, threadid, name, __current);
+        try
+        {
+            __direct.servant()->__collocDispatch(__direct);
+        }
+        catch(...)
+        {
+            __direct.destroy();
+            throw;
+        }
+        __direct.destroy();
+    }
+    catch(const ::Ice::SystemException&)
+    {
+        throw;
+    }
+    catch(const ::IceInternal::LocalExceptionWrapper&)
+    {
+        throw;
+    }
+    catch(const ::std::exception& __ex)
+    {
+        ::IceInternal::LocalExceptionWrapper::throwWrapper(__ex);
+    }
+    catch(...)
+    {
+        throw ::IceInternal::LocalExceptionWrapper(::Ice::UnknownException(__FILE__, __LINE__, "unknown c++ exception"), false);
+    }
+}
+
 ::Ice::ObjectPtr
 loggerice::loggerctrl::ice_clone() const
 {
@@ -490,10 +653,28 @@ loggerice::loggerctrl::___SetName(::IceInternal::Incoming& __inS, const ::Ice::C
     return ::Ice::DispatchOK;
 }
 
+::Ice::DispatchStatus
+loggerice::loggerctrl::___SetThreadName(::IceInternal::Incoming& __inS, const ::Ice::Current& __current)
+{
+    __checkMode(::Ice::Normal, __current.mode);
+    ::IceInternal::BasicStream* __is = __inS.is();
+    __is->startReadEncaps();
+    ::Ice::Int regid;
+    ::Ice::Long threadid;
+    ::std::string name;
+    __is->read(regid);
+    __is->read(threadid);
+    __is->read(name);
+    __is->endReadEncaps();
+    SetThreadName(regid, threadid, name, __current);
+    return ::Ice::DispatchOK;
+}
+
 static ::std::string __loggerice__loggerctrl_all[] =
 {
     "Register",
     "SetName",
+    "SetThreadName",
     "ice_id",
     "ice_ids",
     "ice_isA",
@@ -503,7 +684,7 @@ static ::std::string __loggerice__loggerctrl_all[] =
 ::Ice::DispatchStatus
 loggerice::loggerctrl::__dispatch(::IceInternal::Incoming& in, const ::Ice::Current& current)
 {
-    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__loggerice__loggerctrl_all, __loggerice__loggerctrl_all + 6, current.operation);
+    ::std::pair< ::std::string*, ::std::string*> r = ::std::equal_range(__loggerice__loggerctrl_all, __loggerice__loggerctrl_all + 7, current.operation);
     if(r.first == r.second)
     {
         throw ::Ice::OperationNotExistException(__FILE__, __LINE__, current.id, current.facet, current.operation);
@@ -521,17 +702,21 @@ loggerice::loggerctrl::__dispatch(::IceInternal::Incoming& in, const ::Ice::Curr
         }
         case 2:
         {
-            return ___ice_id(in, current);
+            return ___SetThreadName(in, current);
         }
         case 3:
         {
-            return ___ice_ids(in, current);
+            return ___ice_id(in, current);
         }
         case 4:
         {
-            return ___ice_isA(in, current);
+            return ___ice_ids(in, current);
         }
         case 5:
+        {
+            return ___ice_isA(in, current);
+        }
+        case 6:
         {
             return ___ice_ping(in, current);
         }

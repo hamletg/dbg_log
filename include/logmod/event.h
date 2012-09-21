@@ -69,8 +69,8 @@ class LOGMOD_API event
 	int64_t GetProcessId();
 	void SetProcessId(int64_t id);
 
-	uint32_t GetThreadId();
-	void SetThreadId(uint32_t thread_id);
+	uint64_t GetThreadId();
+	void SetThreadId(uint64_t thread_id);
 	void CaptureThreadId();
 	void CaptureProcessId();
 

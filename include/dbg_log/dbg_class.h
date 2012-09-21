@@ -136,8 +136,15 @@ protected:
 	dbg_log::dbg_class_param<type> __up_dbg_class_param##number(name,var); \
 	__up_dbg_class_member_call.AddParam(&__up_dbg_class_param##number);
 
+#define DBG_NPARAM(name,type,var) \
+	dbg_log::dbg_class_param<type> __up_dbg_class_param##__COUNTER__(name,var); \
+	__up_dbg_class_member_call.AddParam(&__up_dbg_class_param##__COUNTER__);
+
 #define DBG_MSG(msg) __up_dbg_class_member_call.Message(msg);
 #define DBG_MSGF(format,...) __up_dbg_class_member_call.MessageF(format,__VA_ARGS__);
+
+#define DBG_SET_THREAD_NAME(name) \
+	dbg_log::dbg_class::SetThreadName(name)
 
 #else
 
@@ -156,8 +163,12 @@ protected:
 
 #define DBG_PARAM(number,name,type,var)
 
+#define DBG_NPARAM(name,type,var)
+
 #define DBG_MSG(msg)
 #define DBG_MSGF(format,...)
+
+#define DBG_SET_THREAD_NAME(name)
 
 #endif
 

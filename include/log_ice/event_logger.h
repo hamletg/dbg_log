@@ -18,6 +18,7 @@
 #include "logmod/option_event.h"
 #include "logmod/logger_event.h"
 #include "logmod/event_types.h"
+#include "logmod/inttypes.h"
 
 #include <string>
 
@@ -32,9 +33,10 @@ class LOG_ICE_API event_logger: public logmod::event_logger
     event_logger();
     virtual ~event_logger();
 	
-	void SetName(std::string name);
-	std::string GetName();
-
+	virtual void SetName(std::string name);
+	virtual std::string GetName();
+	virtual void SetThreadName(uint64_t id,std::string name);
+	
 	virtual int Connect(const char *ip_address=NULL,unsigned int port=0);
 	virtual int Shutdown();
 
@@ -49,8 +51,7 @@ protected:
 	bool m_bool;
 	//int GetProxyString(std::string &result,std::string adapter, std::string ip, unsigned short port=0);
 	int m_argc;
-	char **m_argv;
-	std::string m_name;
+	char **m_argv;	
 	int m_id;
 };
 

@@ -48,6 +48,7 @@ dbg_class::dbg_class(const char *name,bool print_state)
 	if (old_way)
 		PrintDepth(m_os_str);
 	//PrintProcessId(m_os_str);
+	PrintThreadName(m_os_str);
 	m_os_str << "[" << name << "] enters" << std::endl;
 
 	if (m_logger!=NULL)
@@ -135,6 +136,7 @@ dbg_class::~dbg_class()
 	if (old_way)
 		PrintDepth(m_os_str);
 	//PrintProcessId(m_os_str);
+	PrintThreadName(m_os_str);
 	m_os_str << "[" << m_name << "] exits" << std::endl;
 
 	size=m_dbg_class->m_params.size();
@@ -483,6 +485,10 @@ void dbg_class::SetThreadName(const char *name)
 		m_named_threads[id]=thread;
 	}
 
+	if (m_dft_event_logger!=NULL)
+	{
+		m_dft_event_logger->SetThreadName(id,name);
+	}
 }
 
 uint64_t dbg_class::GetCurTime()

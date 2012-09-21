@@ -63,10 +63,31 @@ void loggerctrlI::SetName(::Ice::Int id, const ::std::string &name, const ::Ice:
 	}
 }
 
+void loggerctrlI::SetThreadName(::Ice::Int req_id, ::Ice::Long thread_id, const ::std::string &name, const ::Ice::Current&)
+{
+	RegisteredProc *reg_proc;
+
+	if ((req_id<0) || (req_id>=m_reg_procs.size()))
+		return;
+	reg_proc=m_reg_procs[req_id];
+
+	reg_proc->SetThreadName(thread_id,name);
+}
+
 int loggerctrlI::GetName(int id,std::string &name)
 {
 	if ((id<0) || (id>=m_reg_procs.size()))
 		return -1;
 	name=m_reg_procs[id]->GetName();
 	return 0;
+}
+
+int loggerctrlI::GetThreadName(int reg_id,uint64_t thread_id, std::string &name)
+{
+	int result=0;
+
+	if ((reg_id<0) || (reg_id>=m_reg_procs.size()))
+		return -1;
+	
+	return m_reg_procs[reg_id]->GetThreadName(thread_id,name);
 }

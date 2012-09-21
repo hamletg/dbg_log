@@ -105,6 +105,9 @@ typedef ::IceUtil::Handle< Callback_loggerctrl_Register_Base> Callback_loggerctr
 class Callback_loggerctrl_SetName_Base : virtual public ::IceInternal::CallbackBase { };
 typedef ::IceUtil::Handle< Callback_loggerctrl_SetName_Base> Callback_loggerctrl_SetNamePtr;
 
+class Callback_loggerctrl_SetThreadName_Base : virtual public ::IceInternal::CallbackBase { };
+typedef ::IceUtil::Handle< Callback_loggerctrl_SetThreadName_Base> Callback_loggerctrl_SetThreadNamePtr;
+
 }
 
 namespace IceProxy
@@ -210,6 +213,54 @@ private:
 
     LOG_ICE_API void SetName(::Ice::Int, const ::std::string&, const ::Ice::Context*);
     LOG_ICE_API ::Ice::AsyncResultPtr begin_SetName(::Ice::Int, const ::std::string&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    
+public:
+
+    void SetThreadName(::Ice::Int regid, ::Ice::Long threadid, const ::std::string& name)
+    {
+        SetThreadName(regid, threadid, name, 0);
+    }
+    void SetThreadName(::Ice::Int regid, ::Ice::Long threadid, const ::std::string& name, const ::Ice::Context& __ctx)
+    {
+        SetThreadName(regid, threadid, name, &__ctx);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetThreadName(::Ice::Int regid, ::Ice::Long threadid, const ::std::string& name)
+    {
+        return begin_SetThreadName(regid, threadid, name, 0, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetThreadName(::Ice::Int regid, ::Ice::Long threadid, const ::std::string& name, const ::Ice::Context& __ctx)
+    {
+        return begin_SetThreadName(regid, threadid, name, &__ctx, ::IceInternal::__dummyCallback, 0);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetThreadName(::Ice::Int regid, ::Ice::Long threadid, const ::std::string& name, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetThreadName(regid, threadid, name, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetThreadName(::Ice::Int regid, ::Ice::Long threadid, const ::std::string& name, const ::Ice::Context& __ctx, const ::Ice::CallbackPtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetThreadName(regid, threadid, name, &__ctx, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetThreadName(::Ice::Int regid, ::Ice::Long threadid, const ::std::string& name, const ::loggerice::Callback_loggerctrl_SetThreadNamePtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetThreadName(regid, threadid, name, 0, __del, __cookie);
+    }
+
+    ::Ice::AsyncResultPtr begin_SetThreadName(::Ice::Int regid, ::Ice::Long threadid, const ::std::string& name, const ::Ice::Context& __ctx, const ::loggerice::Callback_loggerctrl_SetThreadNamePtr& __del, const ::Ice::LocalObjectPtr& __cookie = 0)
+    {
+        return begin_SetThreadName(regid, threadid, name, &__ctx, __del, __cookie);
+    }
+
+    LOG_ICE_API void end_SetThreadName(const ::Ice::AsyncResultPtr&);
+    
+private:
+
+    LOG_ICE_API void SetThreadName(::Ice::Int, ::Ice::Long, const ::std::string&, const ::Ice::Context*);
+    LOG_ICE_API ::Ice::AsyncResultPtr begin_SetThreadName(::Ice::Int, ::Ice::Long, const ::std::string&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
     
@@ -429,6 +480,8 @@ public:
     virtual ::Ice::Int Register(const ::std::string&, const ::Ice::Context*) = 0;
 
     virtual void SetName(::Ice::Int, const ::std::string&, const ::Ice::Context*) = 0;
+
+    virtual void SetThreadName(::Ice::Int, ::Ice::Long, const ::std::string&, const ::Ice::Context*) = 0;
 };
 
 }
@@ -449,6 +502,8 @@ public:
     virtual ::Ice::Int Register(const ::std::string&, const ::Ice::Context*);
 
     virtual void SetName(::Ice::Int, const ::std::string&, const ::Ice::Context*);
+
+    virtual void SetThreadName(::Ice::Int, ::Ice::Long, const ::std::string&, const ::Ice::Context*);
 };
 
 }
@@ -469,6 +524,8 @@ public:
     virtual ::Ice::Int Register(const ::std::string&, const ::Ice::Context*);
 
     virtual void SetName(::Ice::Int, const ::std::string&, const ::Ice::Context*);
+
+    virtual void SetThreadName(::Ice::Int, ::Ice::Long, const ::std::string&, const ::Ice::Context*);
 };
 
 }
@@ -497,6 +554,9 @@ public:
 
     virtual void SetName(::Ice::Int, const ::std::string&, const ::Ice::Current& = ::Ice::Current()) = 0;
     ::Ice::DispatchStatus ___SetName(::IceInternal::Incoming&, const ::Ice::Current&);
+
+    virtual void SetThreadName(::Ice::Int, ::Ice::Long, const ::std::string&, const ::Ice::Current& = ::Ice::Current()) = 0;
+    ::Ice::DispatchStatus ___SetThreadName(::IceInternal::Incoming&, const ::Ice::Current&);
 
     virtual ::Ice::DispatchStatus __dispatch(::IceInternal::Incoming&, const ::Ice::Current&);
 
@@ -720,6 +780,88 @@ template<class T, typename CT> Callback_loggerctrl_SetNamePtr
 newCallback_loggerctrl_SetName(T* instance, void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
 {
     return new Callback_loggerctrl_SetName<T, CT>(instance, 0, excb, sentcb);
+}
+
+template<class T>
+class CallbackNC_loggerctrl_SetThreadName : public Callback_loggerctrl_SetThreadName_Base, public ::IceInternal::OnewayCallbackNC<T>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception&);
+    typedef void (T::*Sent)(bool);
+    typedef void (T::*Response)();
+
+    CallbackNC_loggerctrl_SetThreadName(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::OnewayCallbackNC<T>(obj, cb, excb, sentcb)
+    {
+    }
+};
+
+template<class T> Callback_loggerctrl_SetThreadNamePtr
+newCallback_loggerctrl_SetThreadName(const IceUtil::Handle<T>& instance, void (T::*cb)(), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_loggerctrl_SetThreadName<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_loggerctrl_SetThreadNamePtr
+newCallback_loggerctrl_SetThreadName(const IceUtil::Handle<T>& instance, void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_loggerctrl_SetThreadName<T>(instance, 0, excb, sentcb);
+}
+
+template<class T> Callback_loggerctrl_SetThreadNamePtr
+newCallback_loggerctrl_SetThreadName(T* instance, void (T::*cb)(), void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_loggerctrl_SetThreadName<T>(instance, cb, excb, sentcb);
+}
+
+template<class T> Callback_loggerctrl_SetThreadNamePtr
+newCallback_loggerctrl_SetThreadName(T* instance, void (T::*excb)(const ::Ice::Exception&), void (T::*sentcb)(bool) = 0)
+{
+    return new CallbackNC_loggerctrl_SetThreadName<T>(instance, 0, excb, sentcb);
+}
+
+template<class T, typename CT>
+class Callback_loggerctrl_SetThreadName : public Callback_loggerctrl_SetThreadName_Base, public ::IceInternal::OnewayCallback<T, CT>
+{
+public:
+
+    typedef IceUtil::Handle<T> TPtr;
+
+    typedef void (T::*Exception)(const ::Ice::Exception& , const CT&);
+    typedef void (T::*Sent)(bool , const CT&);
+    typedef void (T::*Response)(const CT&);
+
+    Callback_loggerctrl_SetThreadName(const TPtr& obj, Response cb, Exception excb, Sent sentcb)
+        : ::IceInternal::OnewayCallback<T, CT>(obj, cb, excb, sentcb)
+    {
+    }
+};
+
+template<class T, typename CT> Callback_loggerctrl_SetThreadNamePtr
+newCallback_loggerctrl_SetThreadName(const IceUtil::Handle<T>& instance, void (T::*cb)(const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_loggerctrl_SetThreadName<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_loggerctrl_SetThreadNamePtr
+newCallback_loggerctrl_SetThreadName(const IceUtil::Handle<T>& instance, void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_loggerctrl_SetThreadName<T, CT>(instance, 0, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_loggerctrl_SetThreadNamePtr
+newCallback_loggerctrl_SetThreadName(T* instance, void (T::*cb)(const CT&), void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_loggerctrl_SetThreadName<T, CT>(instance, cb, excb, sentcb);
+}
+
+template<class T, typename CT> Callback_loggerctrl_SetThreadNamePtr
+newCallback_loggerctrl_SetThreadName(T* instance, void (T::*excb)(const ::Ice::Exception&, const CT&), void (T::*sentcb)(bool, const CT&) = 0)
+{
+    return new Callback_loggerctrl_SetThreadName<T, CT>(instance, 0, excb, sentcb);
 }
 
 }

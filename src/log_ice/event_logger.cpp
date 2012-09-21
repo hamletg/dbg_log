@@ -50,6 +50,13 @@ std::string event_logger::GetName()
 	return m_name;
 }
 
+void event_logger::SetThreadName(uint64_t id,std::string name)
+{
+	if (m_impl!=NULL)
+		if (m_impl->m_loggerctrl_if!=NULL)
+			m_impl->m_loggerctrl_if->SetThreadName(m_id,id,name);
+}
+
 int event_logger::Connect(const char *ip_address,unsigned int port)
 {
 	std::string s;

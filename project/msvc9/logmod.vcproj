@@ -291,6 +291,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\logmod\inttypes.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\logmod\logger.h"
 				>
 			</File>

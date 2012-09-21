@@ -157,12 +157,12 @@ void event::SetTime(uint64_t time)
     m_time_ms=time;
 }
 
-uint32_t event::GetThreadId()
+uint64_t event::GetThreadId()
 {
 	return m_thread_id;
 }
 
-void event::SetThreadId(uint32_t thread_id)
+void event::SetThreadId(uint64_t thread_id)
 {
 	m_thread_id=thread_id;
 }

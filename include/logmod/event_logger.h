@@ -27,6 +27,10 @@ class LOGMOD_API event_logger
     event_logger();
     virtual ~event_logger();
 
+	virtual void SetName(std::string name);
+	virtual std::string GetName();
+	virtual void SetThreadName(uint64_t id,std::string name);
+
     virtual void Send(event *evt)=0;
 
     void MarkStartTime();
@@ -47,6 +51,7 @@ class LOGMOD_API event_logger
 	bool m_log_thread_id;
     bool m_ok;
     std::string m_error;
+	std::string m_name;
 };
 
 }

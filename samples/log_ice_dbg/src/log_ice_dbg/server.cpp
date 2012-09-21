@@ -56,6 +56,7 @@ server::server(wxTextCtrl *text,wxThreadKind kind):wxThread(kind)
 		m_adapter->add(m_dbgclassevtiPtr,m_ic->stringToIdentity("DbgClassEvents"));
 
 		m_dbgclassevtifi->SetPrintProcName();
+		m_dbgclassevtifi->SetPrintThreadId();
         
     } 
     catch (const Ice::Exception & e) 

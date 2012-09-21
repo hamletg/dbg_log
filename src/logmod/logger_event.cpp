@@ -24,7 +24,7 @@ logger_event::logger_event():event(&logmod::evt_typ::EVT_LOGGER_EVENT),m_sub_typ
 logger_event::~logger_event()
 {
 }
- 
+
 void logger_event::SetSubType(uint32_t sub_type)
 {
 	m_sub_type=sub_type;

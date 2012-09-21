@@ -14,6 +14,7 @@
 
 #include "log_ice/ice/loggerctrl.h"
 #include "log_ice_dbg/registeredproc.h"
+#include "logmod/inttypes.h"
 
 class loggerctrlI: public loggerice::loggerctrl
 {
@@ -21,10 +22,12 @@ class loggerctrlI: public loggerice::loggerctrl
     loggerctrlI(wxTextCtrl *text);
     virtual ~loggerctrlI();
 
-	virtual ::Ice::Int Register(const ::std::string&, const ::Ice::Current&);
-    virtual void SetName(::Ice::Int, const ::std::string&, const ::Ice::Current&);
+	virtual ::Ice::Int Register(const ::std::string &name, const ::Ice::Current&);
+    virtual void SetName(::Ice::Int req_id, const ::std::string &name, const ::Ice::Current&);
+	virtual void SetThreadName(::Ice::Int req_id, ::Ice::Long thread_id, const ::std::string &name, const ::Ice::Current&);
 
 	int GetName(int id,std::string &name);
+	int GetThreadName(int reg_id,uint64_t thread_id, std::string &name);
 protected:
 	wxTextCtrl *m_text;
 	static int m_count;

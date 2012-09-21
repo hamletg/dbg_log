@@ -309,6 +309,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\log_ice_dbg\registeredthread.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\log_ice_dbg\server.cpp"
 				>
 			</File>
@@ -415,6 +419,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\log_ice_dbg\registeredproc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\log_ice_dbg\registeredthread.h"
 				>
 			</File>
 			<File

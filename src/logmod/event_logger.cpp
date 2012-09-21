@@ -21,6 +21,20 @@ event_logger::~event_logger()
 {
 }
 
+void event_logger::SetName(std::string name)
+{
+	m_name=name;
+}
+
+std::string event_logger::GetName()
+{
+	return m_name;
+}
+
+void event_logger::SetThreadName(uint64_t id,std::string name)
+{
+}
+
 void event_logger::MarkStartTime()
 {
     m_start_time=event::GetCurTime();

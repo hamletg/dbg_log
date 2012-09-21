@@ -1,7 +1,8 @@
-#ifndef __CLOUDCON_INTTYPES_H__
-#define __CLOUDCON_INTTYPES_H__
+#ifndef __DBG_LOG_INTTYPES_H__
+#define __DBG_LOG_INTTYPES_H__
 
 #ifdef _MSC_VER
+#if _MSC_VER < 1600
 #include <limits.h>
 
 typedef __int8 int8_t;
@@ -13,6 +14,11 @@ typedef unsigned __int8 uint8_t;
 typedef unsigned __int16 uint16_t;
 typedef unsigned __int32 uint32_t;
 typedef unsigned __int64 uint64_t;
+#else
+
+#include <stdint.h>
+
+#endif
 
 #define UINT32_T_MAX ULONG_MAX
 #else

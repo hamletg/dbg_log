@@ -3,7 +3,7 @@
 #include "log_ice_dbg/appdata.h"
 
 dbgclasseventifI::dbgclasseventifI(wxTextCtrl *text,sqlitectrlI *sqlite,loggerctrlI *logctrl)
-	: loggerice::dbgclasseventif(), m_print_proc(PROC_NO_PRINT)
+	: loggerice::dbgclasseventif(), m_print_proc(PROC_NO_PRINT), m_print_thread(THREAD_NO_PRINT)
 {
     m_text=text;
     m_sqlite=sqlite;
@@ -33,6 +33,22 @@ void dbgclasseventifI::SetPrintProcId(bool print)
 		m_print_proc=PROC_NO_PRINT;
 }
 
+void dbgclasseventifI::SetPrintThreadName(bool print)
+{
+	if (print)
+		m_print_thread=THREAD_NAME;
+	else
+		m_print_thread=THREAD_NO_PRINT;
+}
+
+void dbgclasseventifI::SetPrintThreadId(bool print)
+{
+	if (print)
+		m_print_thread=THREAD_ID;
+	else
+		m_print_thread=THREAD_NO_PRINT;
+}
+
 void dbgclasseventifI::sendevent(const ::loggerice::dbgclasseventPtr& s, const ::Ice::Current& )
 {
 	std::ostringstream os;
@@ -43,6 +59,7 @@ void dbgclasseventifI::sendevent(const ::loggerice::dbgclasseventPtr& s, const :
 	ap->NewEvent(&logmod::evt_typ::EVT_DBG_CLASS);
   
     uint32_t raw;
+	int result;
 
     if (m_text!=NULL)
     {
@@ -58,6 +75,27 @@ void dbgclasseventifI::sendevent(const ::loggerice::dbgclasseventPtr& s, const :
 			case PROC_NAME:
 				
 				m_logger_ctrl->GetName(s->regId,name);
+				os << "[";
+				os.width(10);
+				os << name;
+				os.width(0);
+				os << "]";
+			default:
+				;
+		}
+		switch (m_print_thread)
+		{
+			case THREAD_ID:
+				os << "[thread ";
+				os.width(2);
+				os << s->threadId;
+				os.width(0);
+				os << "]";
+				break;
+			case THREAD_NAME:				
+				result=m_logger_ctrl->GetThreadName(s->regId,s->threadId,name);
+				if (result<0)
+					name.assign("??");
 				os << "[";
 				os.width(10);
 				os << name;
