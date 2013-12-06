@@ -20,7 +20,7 @@ namespace dbg_log
 {
 
 //wxTextCtrl *dbg_class::m_text=NULL;
-
+bool dbg_class::m_enable=false;
 bool dbg_class::m_diff_thread=false;
 int dbg_class::m_depth=0;
 logmod::logger *dbg_class::m_dft_logger=NULL;
@@ -30,80 +30,102 @@ int dbg_class::m_thread_count=0;
 int dbg_class::m_thread_name_width=8;
 std::map<uint64_t,dbg_class_thread> dbg_class::m_named_threads;
 
+std::string dbg_class::m_depth_str="    ";
+std::string dbg_class::m_blank_hdr="       ";
+std::string dbg_class::m_param_hdr="              Param: ";
+std::string dbg_class::m_blank_param_hdr="                     ";
+std::string dbg_class::m_struct_param_hdr="   ";
+std::string dbg_class::m_return_hdr="              Return: ";
+
+void dbg_class::Enable(bool enable)
+{
+    m_enable=enable;
+}
+
+void dbg_class::Disable()
+{
+    m_enable=false;
+}
+
 bool old_way=true;
 
 dbg_class::dbg_class(const char *name,bool print_state)
-	: m_dbg_class(NULL), m_end(false), m_return(NULL), m_print_state(false)
-	, m_name(name), m_logger(NULL)
+    : m_dbg_class(NULL), m_end(false), m_return(NULL), m_print_state(false)
+    , m_name(name), m_logger(NULL), m_thread_info(NULL)
 {
-	int aaa;
-	
-	//m_my_depth=dbg_class::m_depth;
-	m_my_depth=dbg_class::Depth(&m_thread_info);
+    int aaa;
+    
+    if (!m_enable)
+        return;
+    //m_my_depth=dbg_class::m_depth;
+    m_my_depth=dbg_class::Depth(&m_thread_info);
 
-	dbg_class::IncDepth(m_thread_info);
+    dbg_class::IncDepth(m_thread_info);
 
-	//(*logger) << logmod::time;
+    //(*logger) << logmod::time;
     m_os_str.str(""); 
-	if (old_way)
-		PrintDepth(m_os_str);
-	//PrintProcessId(m_os_str);
-	PrintThreadName(m_os_str);
-	m_os_str << "[" << name << "] enters" << std::endl;
+    if (old_way)
+        PrintDepth(m_os_str);
+    //PrintProcessId(m_os_str);
+    PrintThreadName(m_os_str);
+    m_os_str << "[" << name << "] enters" << std::endl;
 
-	if (m_logger!=NULL)
-	{
-		m_logger->Begin();
+    if (m_logger!=NULL)
+    {
+        m_logger->Begin();
 #ifndef __GNUC__
-		(*m_logger) << (m_os_str.str());
+        (*m_logger) << (m_os_str.str());
 #else
-		(*m_logger) << (m_os_str.str());
+        (*m_logger) << (m_os_str.str());
 #endif
-		m_logger->End();
-	}
-	if (m_dft_logger!=NULL)
-	{
-		m_dft_logger->Begin();
-		if (!old_way)
-		{
-			m_dft_logger->SetDepth(m_my_depth);
-			m_dft_logger->SetDepthSize(4);
-			m_dft_logger->SetStaticHeaderSize(7);
-			m_dft_logger->HeaderEnable(false);
-		}
+        m_logger->End();
+    }
+    if (m_dft_logger!=NULL)
+    {
+        m_dft_logger->Begin();
+        if (!old_way)
+        {
+            m_dft_logger->SetDepth(m_my_depth);
+            m_dft_logger->SetDepthSize(4);
+            m_dft_logger->SetStaticHeaderSize(7);
+            m_dft_logger->HeaderEnable(false);
+        }
 #ifndef __GNUC__
-		(*m_dft_logger) << m_os_str.str();
+        (*m_dft_logger) << m_os_str.str();
 #else
-		(*m_dft_logger) << m_os_str.str();
+        (*m_dft_logger) << m_os_str.str();
 #endif
-		if (!old_way)
-			m_dft_logger->HeaderEnable(true);
-		m_dft_logger->End();
-	}
-	if (m_dft_event_logger!=NULL)
+        if (!old_way)
+            m_dft_logger->HeaderEnable(true);
+        m_dft_logger->End();
+    }
+    if (m_dft_event_logger!=NULL)
     {
         //m_os_str << std::endl;
-		/*m_event.SetDepth(m_my_depth);
+        /*m_event.SetDepth(m_my_depth);
         m_event.SetCallTxt((char *)m_os_str.str().c_str());
-		m_event.SetSubType(dbg_class_event::START_FCT_CALL);
+        m_event.SetSubType(dbg_class_event::START_FCT_CALL);
         //m_event.SetTS(logmod::logger::GetTimeStamp());
         //m_event.SetElapsedTime(cur_time-m_start_time);
         m_dft_event_logger->Send(&m_event); */
     }
-	m_os_str.str("");
+    m_os_str.str("");
 }
 
 dbg_class::dbg_class(dbg_class *dbg)
-	: m_dbg_class(dbg), m_end(true), m_return(NULL), m_print_state(false)
-	, m_logger(NULL)
-    , m_fct_info(NULL)
+    : m_dbg_class(dbg), m_end(true), m_return(NULL), m_print_state(false)
+    , m_logger(NULL)
+    , m_fct_info(NULL), m_thread_info(NULL)
 {
-	m_name=dbg->m_name;
+    if (!m_enable)
+        return;
+
+    m_name=dbg->m_name;
    
-	if (dbg!=NULL)
+    if (dbg!=NULL)
     {
         m_my_depth=dbg->m_my_depth;
-		m_thread_info=dbg->m_thread_info;
+        m_thread_info=dbg->m_thread_info;
         m_print_state=dbg->m_print_state;
 
         m_logger=dbg->m_logger;    
@@ -122,38 +144,50 @@ dbg_class::dbg_class(dbg_class *dbg)
 
 dbg_class::~dbg_class()
 {
-	int aaa,size;
-	dbg_class_param_base *param;
-    uint64_t cur_time;
+    if (!m_enable)
+        return;
 
-	if (m_end==false)
+    int aaa,size;
+    dbg_class_param_base *param;
+    uint64_t cur_time;
+    std::string s;
+    std::ostringstream oss;
+
+    if (m_end==false)
     {
         dbg_class::DecDepth(m_thread_info);
         return; 
     }
 
-	m_os_str.str("");
-	if (old_way)
-		PrintDepth(m_os_str);
-	//PrintProcessId(m_os_str);
-	PrintThreadName(m_os_str);
-	m_os_str << "[" << m_name << "] exits" << std::endl;
+    m_os_str.str("");
+    if (old_way)
+        PrintDepth(m_os_str);
+    //PrintProcessId(m_os_str);
+    PrintThreadName(m_os_str);
+    m_os_str << "[" << m_name << "] exits" << std::endl;
 
-	size=m_dbg_class->m_params.size();
+    size=m_dbg_class->m_params.size();
     for (aaa=0;aaa<size;aaa++)
     {
         param=m_dbg_class->m_params.at(aaa);
         if (param->IsOutput())
         {
             PrintParamHeader(m_os_str);
-            param->Print(m_os_str,false);
+             
+            oss.str("");
+            param->Print(oss,true);
+            s=oss.str();
+            this->AddDepth(s,false);
+            m_os_str << s << std::endl;
+
+            //param->Print(m_os_str,false);
         }
     }
 
-	if (m_return!=NULL)
+    if (m_return!=NULL)
     {
-		PrintReturnHeader(m_os_str);
-		m_return->Print(m_os_str);
+        PrintReturnHeader(m_os_str);
+        m_return->Print(m_os_str);
     }
     if (m_print_state)
     {
@@ -163,36 +197,36 @@ dbg_class::~dbg_class()
             m_dbg_class->m_api->PrintState(*logger,m_my_depth); */
         
     }
-	m_os_str << std::endl;
+    m_os_str << std::endl;
 
-	if (m_logger!=NULL)
-	{
-		m_logger->Begin();
+    if (m_logger!=NULL)
+    {
+        m_logger->Begin();
 #ifndef __GNUC__
-		(*m_logger) << m_os_str.str();
+        (*m_logger) << m_os_str.str();
 #else
-		(*m_logger) << m_os_str.str();
+        (*m_logger) << m_os_str.str();
 #endif
-		m_logger->End();
-	}
-	if (m_dft_logger!=NULL)
-	{
-		m_dft_logger->Begin();
-		if (!old_way)
-		{
-			m_dft_logger->SetDepth(m_my_depth);
-			m_dft_logger->HeaderEnable(false);
-		}
+        m_logger->End();
+    }
+    if (m_dft_logger!=NULL)
+    {
+        m_dft_logger->Begin();
+        if (!old_way)
+        {
+            m_dft_logger->SetDepth(m_my_depth);
+            m_dft_logger->HeaderEnable(false);
+        }
 #ifndef __GNUC__
-		(*m_dft_logger) << (m_os_str.str());
+        (*m_dft_logger) << (m_os_str.str());
 #else
-		(*m_dft_logger) << (m_os_str.str());
+        (*m_dft_logger) << (m_os_str.str());
 #endif
-		if (!old_way)
-			m_dft_logger->HeaderEnable(true);
-		m_dft_logger->End();
-	}
-	if (m_dft_event_logger!=NULL)
+        if (!old_way)
+            m_dft_logger->HeaderEnable(true);
+        m_dft_logger->End();
+    }
+    if (m_dft_event_logger!=NULL)
     {
         //m_os_str << std::endl;
         m_event.SetCallTxt((char *)m_os_str.str().c_str());
@@ -207,15 +241,15 @@ dbg_class::~dbg_class()
 void dbg_class::MessageF(const char *format, ...)
 {
 #ifdef _MSC_VER
-	char result[500];
+    char result[500];
 
-	va_list args;
+    va_list args;
     va_start(args, format);
 
     vsprintf(result, format, args);
 
     va_end(args);
-	Message(result);
+    Message(result);
 
 #else
 
@@ -224,20 +258,23 @@ void dbg_class::MessageF(const char *format, ...)
 
 void dbg_class::Message(const char *msg)
 {
-	std::ostringstream os_str;
+    if (!m_enable)
+        return;
+
+    std::ostringstream os_str;
 
     if ((m_dft_event_logger!=NULL)||(m_dft_logger!=NULL))
-	{
-		os_str.str("");
-		os_str << "[" << m_name << "] message: " << std::endl;
+    {
+        os_str.str("");
+        os_str << "[" << m_name << "] message: " << std::endl;
         os_str << "    " << msg << std::endl;
-	}
+    }
 
-	if (m_dft_logger!=NULL)
+    if (m_dft_logger!=NULL)
 #ifndef __GNUC__
-		(*m_dft_logger) << os_str.str();
+        (*m_dft_logger) << os_str.str();
 #else
-		(*m_dft_logger) << os_str.str();
+        (*m_dft_logger) << os_str.str();
 #endif
 
     if (m_dft_event_logger!=NULL)
@@ -252,146 +289,220 @@ void dbg_class::Message(const char *msg)
 
 void dbg_class::SetFunctionInfo(dbg_class_function_info *info)
 {
-	m_fct_info=info;
+    m_fct_info=info;
+}
+
+void dbg_class::AddDepth(std::string &str,bool with_static_header)
+{
+    if (!m_enable)
+        return;
+
+    std::string src(str),dst,depth;
+    std::string::size_type i=src.npos;
+    int nbr_endl=0;
+    bool add_endl=false;
+    
+    depth.append("\n");
+	//depth.Append("\n");
+	//depth.Append(' ',m_depth*m_depth_size);
+    depth.append(m_blank_hdr);    
+    depth.append(m_blank_param_hdr);
+    for (int aaa=0;aaa<m_my_depth;aaa++)
+        //os << m_depth_str;
+        depth.append(m_depth_str);
+        //depth.append(m_depth*m_depth_size,' ');
+    depth.append(m_struct_param_hdr);
+    //src.Replace("\n",depth);
+    i=src.rfind("\n",i);
+    if (i==src.npos)
+        return;
+    if ((i!=src.npos)&&(i!=src.size()))
+    {
+        add_endl=true;
+        src.replace(i,1,"");
+        i=src.npos;
+    }
+    
+  //      return;
+    do
+    {
+        if (nbr_endl==0)
+        {
+            if (!add_endl)
+                src.replace(i,1,depth);
+        }
+        else
+            src.replace(i,1,depth);
+        i--;
+        nbr_endl++;
+    } while ((i=src.rfind("\n",i))!=src.npos);
+	
+	//dst.Append(src);
+    
+    dst.append(src);
+    /*if ((add_endl)&&(nbr_endl<2))
+        dst.append("\n"); */
+    if (nbr_endl>1)
+    {
+        i=dst.find("=");
+        if (i!=dst.npos)
+            dst.replace(i,2,depth);
+    }
+    str=dst;
+	//str.assign(dst.GetData().AsChar());
 }
 
 void dbg_class::AllParamAdded()
 {
-	int aaa,size;
-	dbg_class_param_base *param;
-	std::string s;
-	//m_os_str.str("");
-	
+    if (!m_enable)
+        return;
+
+    int aaa,size;
+    dbg_class_param_base *param;
+    std::string s;
+    std::ostringstream oss;
+    //m_os_str.str("");
+    
     size=m_params.size();
     for (aaa=0;aaa<size;aaa++)
     {
-		param=m_params.at(aaa);
-		if (old_way)
-			PrintParamHeader(m_os_str);
-		else
-		{
-			s.assign("              Param: ");
-			s.size();
-		}
+        param=m_params.at(aaa);
+        if (old_way)
+            PrintParamHeader(m_os_str);
+        else
+        {
+            s.assign("              Param: ");
+            s.size();
+        }
         //m_os_str << "    Param: ";
-		param->Print(m_os_str,true);
+        oss.str("");
+        param->Print(oss,true);
+        s=oss.str();
+        this->AddDepth(s,false);
+        m_os_str << s << std::endl;
+        //param->Print(m_os_str,true);
     }
     m_os_str << std::endl;
     if (m_logger!=NULL)
-	{
-		m_logger->Begin();
-		(*m_logger) << m_os_str.str();
-		m_logger->End();
-	}
-	if (m_dft_logger!=NULL)
-	{
-		m_dft_logger->Begin();
-		std::string s=m_os_str.str();
+    {
+        m_logger->Begin();
+        (*m_logger) << m_os_str.str();
+        m_logger->End();
+    }
+    if (m_dft_logger!=NULL)
+    {
+        m_dft_logger->Begin();
+        std::string s=m_os_str.str();
+
 #ifndef __GNUC__
-		(*m_dft_logger) << m_os_str.str();
+        (*m_dft_logger) << m_os_str.str();
 #else
-		(*m_dft_logger) << m_os_str.str();
+        (*m_dft_logger) << m_os_str.str();
 #endif
-		m_dft_logger->End();
-	}
-	if (m_dft_event_logger!=NULL)
-	{
-		m_event.SetDepth(m_my_depth);
+        m_dft_logger->End();
+    }
+    if (m_dft_event_logger!=NULL)
+    {
+        m_event.SetDepth(m_my_depth);
         //m_event.SetTS(logmod::logger::GetTimeStamp());
         m_event.SetSubType(dbg_log::dbg_class_event::START_FCT_CALL);
-		m_event.SetCallTxt((char *)m_os_str.str().c_str());        
+        m_event.SetCallTxt((char *)m_os_str.str().c_str());        
         m_dft_event_logger->Send(&m_event);
-	}
+    }
     
 }
 
 void dbg_class::AddParam(dbg_class_param_base *param)
 {
-	//Is active or not, the param are printed as well?
-	m_params.push_back(param);
+    if (!m_enable)
+        return;
+    //Is active or not, the param are printed as well?
+    m_params.push_back(param);
 }
 
 void dbg_class::SetReturn(dbg_class_param_base *ret)
 {
+    if (!m_enable)
+        return;
     m_return=ret;
 }
 
 void dbg_class::PrintBlankHeader(std::ostream &os)
 {
-	os << "       ";
+    os << m_blank_hdr;
 }
 
 void dbg_class::PrintParamHeader(std::ostream &os)
 {
-	int aaa;
-	
-	PrintBlankHeader(os);
+    int aaa;
+    
+    PrintBlankHeader(os);
 
-	for (aaa=0;aaa<m_my_depth;aaa++)
-		os << "    ";
-    os << "              Param: ";
+    for (aaa=0;aaa<m_my_depth;aaa++)
+        os << m_depth_str;
+    os << m_param_hdr;
 }
 
 void dbg_class::PrintReturnHeader(std::ostream &os)
 {
-	int aaa;
+    int aaa;
 
-	PrintBlankHeader(os);
+    PrintBlankHeader(os);
 
-	for (aaa=0;aaa<m_my_depth;aaa++)
-		os << "    ";
-	os << "              Return: ";
+    for (aaa=0;aaa<m_my_depth;aaa++)
+        os << m_depth_str;
+    os << m_return_hdr;
 }
 
 void dbg_class::PrintCurTime(std::ostream &os)
 {
-	os << "[";
-	os.width(15);
-	os.fill('0');
-	os << std::right << dbg_class::GetCurTime();
-	os.width();
-	os << "]";
+    os << "[";
+    os.width(15);
+    os.fill('0');
+    os << std::right << dbg_class::GetCurTime();
+    os.width();
+    os << "]";
 }
 
 void dbg_class::PrintDepth(std::ostream &os)
 {
-	int aaa;
+    int aaa;
 
-	os << "[";
-	os.width(5);
-	os.fill(' ');
-	os << std::right << m_my_depth;
-	os.width(0);
-	os << "]";
+    os << "[";
+    os.width(5);
+    os.fill(' ');
+    os << std::right << m_my_depth;
+    os.width(0);
+    os << "]";
 
-	for (aaa=0;aaa<m_my_depth;aaa++)
-		os << "    ";
+    for (aaa=0;aaa<m_my_depth;aaa++)
+        os << "    ";
 }
 
 void dbg_class::PrintRegId(std::ostream &os, int id)
 {
-	int aaa;
+    int aaa;
 
-	os << "[";
-	os.width(2);
-	os.fill(' ');
-	os << std::right << id;
-	os.width(0);
-	os << "]";
+    os << "[";
+    os.width(2);
+    os.fill(' ');
+    os << std::right << id;
+    os.width(0);
+    os << "]";
 }
 
 void dbg_class::PrintThreadName(std::ostream &os)
 {
-	if (m_diff_thread==false)
-		return;
-	if (m_thread_info==NULL)
-		return;
-	os << "[";
-	os.width(m_thread_name_width);
-	os.fill(' ');
-	os << std::right << m_thread_info->GetName();
-	os.width(0);
-	os << "]";
+    if (m_diff_thread==false)
+        return;
+    if (m_thread_info==NULL)
+        return;
+    os << "[";
+    os.width(m_thread_name_width);
+    os.fill(' ');
+    os << std::right << m_thread_info->GetName();
+    os.width(0);
+    os << "]";
 
 }
 
@@ -402,18 +513,18 @@ int dbg_class::GetDepth()
 
 void dbg_class::IncDepth(dbg_class_thread *thread_info)
 {
-	if (thread_info==NULL)
-		dbg_class::m_depth++;
-	else
-		thread_info->IncDepth();
+    if (thread_info==NULL)
+        dbg_class::m_depth++;
+    else
+        thread_info->IncDepth();
 }
 
 void dbg_class::DecDepth(dbg_class_thread *thread_info)
 {
-	if (thread_info==NULL)
-		dbg_class::m_depth--;
-	else
-		thread_info->DecDepth();
+    if (thread_info==NULL)
+        dbg_class::m_depth--;
+    else
+        thread_info->DecDepth();
 }
 
 void dbg_class::ResetDepth()
@@ -423,72 +534,75 @@ void dbg_class::ResetDepth()
 
 int dbg_class::Depth(dbg_class_thread **thread_info)
 {
-	if (m_diff_thread==false)
-	{
-		if (thread_info!=NULL)
-			*thread_info=NULL;
-		return dbg_class::m_depth;
-	}
+    if (!m_enable)
+        return 0;
 
-	std::map<uint64_t,dbg_class_thread>::iterator it;
-	uint64_t id=wxThread::GetCurrentId();
+    if (m_diff_thread==false)
+    {
+        if (thread_info!=NULL)
+            *thread_info=NULL;
+        return dbg_class::m_depth;
+    }
 
-	it=m_named_threads.find(id);
-	if (it!=m_named_threads.end())
-	{
-		if (thread_info!=NULL)
-			*thread_info=&(*it).second;
-		return (*it).second.GetDepth();
-	}
-	std::ostringstream oss;
-	dbg_class_thread thread;
+    std::map<uint64_t,dbg_class_thread>::iterator it;
+    uint64_t id=wxThread::GetCurrentId();
 
-	oss << "Thread";
-	oss.width(2);
-	oss.fill('0');
-	oss << m_thread_count;
-	thread.SetName(oss.str());
-	thread.SetId(id);
-	m_named_threads[id]=thread;
-	if (thread_info!=NULL)
-		*thread_info=&m_named_threads[id];
-	return 0;
+    it=m_named_threads.find(id);
+    if (it!=m_named_threads.end())
+    {
+        if (thread_info!=NULL)
+            *thread_info=&(*it).second;
+        return (*it).second.GetDepth();
+    }
+    std::ostringstream oss;
+    dbg_class_thread thread;
+
+    oss << "Thread";
+    oss.width(2);
+    oss.fill('0');
+    oss << m_thread_count;
+    thread.SetName(oss.str());
+    thread.SetId(id);
+    m_named_threads[id]=thread;
+    if (thread_info!=NULL)
+        *thread_info=&m_named_threads[id];
+    return 0;
 }
 
 /*void dbg_class::SetStaticTextCtrl(wxTextCtrl *text)
 {
-	dbg_class::m_text=text;
+    dbg_class::m_text=text;
 } */
 
 /*wxTextCtrl *dbg_class::GetStaticTextCtrl()
 {
-	return dbg_class::m_text;
+    return dbg_class::m_text;
 } */
 
 void dbg_class::SetThreadName(const char *name)
 {
-	std::map<uint64_t,dbg_class_thread>::iterator it; // m_named_threads
-	uint64_t id=wxThread::GetCurrentId();
-	dbg_class_thread thread;
+    std::map<uint64_t,dbg_class_thread>::iterator it; // m_named_threads
+    uint64_t id=wxThread::GetCurrentId();
+    dbg_class_thread thread;
 
-	thread.SetId(id);
-	thread.SetName(name);
+    thread.SetId(id);
+    thread.SetName(name);
 
-	it=m_named_threads.find(id);
+    it=m_named_threads.find(id);
 
-	if (it==m_named_threads.end())
-	{
-		m_named_threads[id]=thread;	
-	}
-	else
-	{
-		m_named_threads[id]=thread;
-	}
+    if (it==m_named_threads.end())
+    {
+        m_named_threads[id]=thread;	
+    }
+    else
+    {
+        m_named_threads[id]=thread;
+    }
 
-	if (m_dft_event_logger!=NULL)
-	{
-		m_dft_event_logger->SetThreadName(id,name);
-	}
+    if (m_dft_event_logger!=NULL)
+    {
+        m_dft_event_logger->SetThreadName(id,name);
+    }
 }
 
 uint64_t dbg_class::GetCurTime()
@@ -515,17 +629,17 @@ uint64_t dbg_class::GetCurTime()
 
 uint32_t dbg_class::GetCurThreaId()
 {
-	return wxThread::GetCurrentId();
+    return wxThread::GetCurrentId();
 }
 
 void dbg_class::SetDifferentiateThread(bool value)
 {
-	m_diff_thread=value;
+    m_diff_thread=value;
 }
 
 void dbg_class::SetDefaultLogger(logmod::logger *logger)
 {
-	dbg_class::m_dft_logger=logger;
+    dbg_class::m_dft_logger=logger;
 }
 
 void dbg_class::SetDefaultEventLogger(logmod::event_logger *log)
@@ -535,17 +649,17 @@ void dbg_class::SetDefaultEventLogger(logmod::event_logger *log)
 
 logmod::logger *dbg_class::GetDefaultLogger()
 {
-	return dbg_class::m_dft_logger;
+    return dbg_class::m_dft_logger;
 }
 
 void dbg_class::SetThreadNameWidth(int size)
 {
-	m_thread_name_width=size;
+    m_thread_name_width=size;
 }
 
 int dbg_class::GetThreadNameWidth()
 {
-	return m_thread_name_width;
+    return m_thread_name_width;
 }
 
 }

@@ -13,40 +13,42 @@
 
 int main(int argc, char *argv[])
 {
-	DummyA dum;
-	std::ofstream ofs("text.txt");	
-	logmod::logger my_log;
-	log_ice::event_logger event_log;
-	
-	wxInitializer initializer;
- 	if ( !initializer )
- 	{
-		std::cerr << "Failed to initialize the wxWidgets library, aborting." << std::endl;
- 		return -1;
- 	}
+    DummyA dum;
+    std::ofstream ofs("text.txt");	
+    logmod::logger my_log;
+    //log_ice::event_logger event_log;
+    
+    wxInitializer initializer;
+    if ( !initializer )
+    {
+        std::cerr << "Failed to initialize the wxWidgets library, aborting." << std::endl;
+        return -1;
+    }
 
-	MyThread myt(wxTHREAD_JOINABLE);
-	
-	event_log.SetName("test01");
-	event_log.LogThreadId(true);
-	
-	event_log.Enable();
-	event_log.Connect();
+    MyThread myt(wxTHREAD_JOINABLE);
+    
+    //event_log.SetName("test01");
+    //event_log.LogThreadId(true);
+    
+    //event_log.Enable();
+    //event_log.Connect();
 
-	my_log.SetOfstream(&ofs);
-	dbg_log::dbg_class::SetDefaultLogger(&my_log);
-	dbg_log::dbg_class::SetDefaultEventLogger(&event_log);
+    my_log.SetOfstream(&ofs);
+    dbg_log::dbg_class::SetDefaultLogger(&my_log);
+    //dbg_log::dbg_class::SetDefaultEventLogger(&event_log);
 
-	DBG_SET_THREAD_NAME("Main");
-	dbg_log::dbg_class::SetDifferentiateThread(true);
+    dbg_log::dbg_class::Enable();
 
-	std::cout << "Hello World!" << std::endl;
+    DBG_SET_THREAD_NAME("Main");
+    dbg_log::dbg_class::SetDifferentiateThread(true);
 
-	myt.Create();
-	myt.Run();
+    std::cout << "Hello World!" << std::endl;
 
-	dum.Loop();
+    //myt.Create();
+    //myt.Run();
 
-	myt.Wait();
-	return 0;
+    dum.Loop();
+
+    //myt.Wait();
+    return 0;
 }
