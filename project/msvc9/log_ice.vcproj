@@ -74,8 +74,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies=" iced.lib iceutild.lib logmodcd.lib dbg_logcd.lib"
-				OutputFile="$(OutDir)/$(ProjectName)cd.dll"
+				AdditionalDependencies=" iced.lib iceutild.lib logmodd.lib dbg_logd.lib"
+				OutputFile="$(OutDir)/$(ProjectName)d.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(ICE)\lib;..\..\lib\msvc9"
 				GenerateDebugInformation="true"
@@ -159,8 +159,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies=" ice.lib iceutil.lib logmodc.lib dbg_logc.lib"
-				OutputFile="$(OutDir)/$(ProjectName)c.dll"
+				AdditionalDependencies=" ice.lib iceutil.lib logmod.lib dbg_log.lib"
+				OutputFile="$(OutDir)/$(ProjectName).dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(ICE)\lib;..\..\lib\msvc9"
 				GenerateDebugInformation="false"
