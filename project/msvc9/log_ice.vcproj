@@ -74,10 +74,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies=" Iced.lib IceUtild.lib logmodcd.lib dbg_logcd.lib"
+				AdditionalDependencies=" iced.lib iceutild.lib logmodcd.lib dbg_logcd.lib"
 				OutputFile="$(OutDir)/$(ProjectName)cd.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="$(ICE)\lib\msvc9;..\..\lib\msvc9"
+				AdditionalLibraryDirectories="$(ICE)\lib;..\..\lib\msvc9"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/$(ProjectName)cd.pdb"
 				SubSystem="2"
@@ -137,8 +137,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;;_USRDLL;LOG_ICE_EXPORTS"
+				AdditionalIncludeDirectories="..\..\include;$(ICE)\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LOG_ICE_EXPORTS;LOG_ICE_API_EXPORTS;LOGMOD_USE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="$(ProjectName)/$(ProjectName)_prec.h"
@@ -159,8 +159,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies=" ice.lib iceutil.lib logmodc.lib dbg_logc.lib"
 				OutputFile="$(OutDir)/$(ProjectName)c.dll"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="$(ICE)\lib;..\..\lib\msvc9"
 				GenerateDebugInformation="false"
 				ProgramDatabaseFile="$(OutDir)/$(ProjectName)c.pdb"
 				SubSystem="2"
@@ -249,12 +251,28 @@
 							UsePrecompiledHeader="0"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\src\log_ice\ice\event.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -273,6 +291,14 @@
 							UsePrecompiledHeader="0"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\src\log_ice\ice\loggerctrl.cpp"
@@ -285,12 +311,28 @@
 							UsePrecompiledHeader="0"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\src\log_ice\ice\option_event.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"

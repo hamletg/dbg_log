@@ -275,16 +275,28 @@ bool logger::GetHeaderEnable()
 
 void logger::AddDepth(std::string &str,bool with_static_header)
 {
-	wxString src(str.c_str()),dst,depth;
-	
-	if (with_static_header==true)
-		dst.Append(' ',m_static_header_size);
-	depth.Append("\n");
-	depth.Append(' ',m_depth*m_depth_size);
-	src.Replace("\n",depth);
-	dst.Append(src);
+    std::string src(str),dst,depth;
+    std::string::size_type i=0;
 
-	str.assign(dst.GetData().AsChar());
+	if (with_static_header==true)
+		//dst.Append(' ',m_static_header_size);
+        dst.append(m_static_header_size,' ');
+    depth.append("\n");
+	//depth.Append("\n");
+	//depth.Append(' ',m_depth*m_depth_size);
+    depth.append(m_depth*m_depth_size,' ');
+    
+    //src.Replace("\n",depth);
+    while ((i=src.find("\n",i))!=src.npos)
+    {
+        src.replace(i,1,depth);
+        i++;
+    }
+	
+	//dst.Append(src);
+    dst.append(src);
+    src=dst;
+	//str.assign(dst.GetData().AsChar());
 }
 
 }

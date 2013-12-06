@@ -3,6 +3,7 @@
 
 #include <Ice/Ice.h>
 
+#include "log_ice/log_ice_defs.h"
 #include "log_ice/ice/dbg_class_event.h"
 #include "log_ice/ice/logger_event.h"
 #include "log_ice/ice/option_event.h"

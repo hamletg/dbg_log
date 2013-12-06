@@ -25,6 +25,8 @@
 #include "logmod/event_types.h"
 #include "wx/wxsqlite3.h"
 
+#include <iostream>
+
 namespace log_sqlite
 {
 

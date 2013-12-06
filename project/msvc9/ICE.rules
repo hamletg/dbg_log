@@ -7,7 +7,7 @@
 		<CustomBuildRule
 			Name=".ice files to C++ files"
 			DisplayName=".ice to C++"
-			CommandLine="$(ICE)\bin\msvc9\slice2cpp.exe -I$(ICE)/slice  -I../../src --output-dir $(InputDir) [IncludeDirInICEFile] [DLLExport] $(InputPath)&#x0D;&#x0A;python $(SolutionDir)\clean_slice.py $(InputDir)$(InputName).h&#x0D;&#x0A;copy $(InputDir)$(InputName).h [IncludeDirSource]"
+			CommandLine="$(ICE)\bin\slice2cpp.exe -I$(ICE)/slice  -I../../src --output-dir $(InputDir) [IncludeDirInICEFile] [DLLExport] $(InputPath)&#x0D;&#x0A;python $(SolutionDir)\clean_slice.py $(InputDir)$(InputName).h&#x0D;&#x0A;copy $(InputDir)$(InputName).h [IncludeDirSource]"
 			Outputs="$(InputDir)\$(InputName).h;$(InputDir)\$(InputName).cpp"
 			FileExtensions="*.ice"
 			ExecutionDescription="Run slice2cpp"

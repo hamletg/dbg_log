@@ -1,5 +1,5 @@
 /*!
- * \file dbg_log/log_ice_defs.h
+ * \file log_ice/log_ice_defs.h
  * \brief Definitions needed for log_ice
  *
  * \cond
