@@ -31,6 +31,9 @@ void DummyA::Call()
 {
     DBG_CALLMEMBER("DummyA::Call",false);
     DBG_CALLMEMBER_END;
+
+    DBG_MSG_OS( "First message" << std::endl);
+    DBG_MSG_OS( "Second message" << std::endl);
 }
 
 void DummyA::Call(int param1)
@@ -63,6 +66,9 @@ void DummyA::Call(int param1, DummyObj &obj_1)
     DBG_PARAM(0,"p1",int,param1);
     DBG_PARAM(1,"obj_1",DummyObj,obj_1);
     DBG_CALLMEMBER_END;
+
+    DBG_MSG_OS( "First message" << std::endl);
+    DBG_MSG_OS( "Second message" << std::endl);
 }
 
 int DummyA::CallR()
@@ -124,6 +130,9 @@ void DummyA::CallRec(int param1,DummyObj &obj_1)
     DBG_PARAM(0,"p1",int,param1);
     DBG_PARAM(1,"obj_1",DummyObj,obj_1);
     DBG_CALLMEMBER_END;
+
+    DBG_MSG_OS( "First message" << std::endl);
+    DBG_MSG_OS( "Second message" << std::endl);
 
     if (param1<=0)
         return;
