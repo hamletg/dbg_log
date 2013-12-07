@@ -272,7 +272,7 @@ void dbg_class::Message(const char *msg)
     if ((m_dft_event_logger!=NULL)||(m_dft_logger!=NULL))
     {
         os_str << "[" << m_name << "] message: " << std::endl;
-        os_str << "    " << msg << std::endl;
+        os_str << "    " << msg;// << std::endl;
     }
 
     if (m_dft_logger!=NULL)
@@ -281,14 +281,14 @@ void dbg_class::Message(const char *msg)
         PrintDepth(m_os_str);
         //PrintProcessId(m_os_str);
         PrintThreadName(m_os_str);
-        PrintParamHeader(m_os_str);
+        //PrintParamHeader(m_os_str);
 
             s=os_str.str();
             this->AddDepth(s,false);
 #ifndef __GNUC__
-        (*m_dft_logger) << m_os_str.str() << s;
+        (*m_dft_logger) << m_os_str.str() << s << "\n"; //std::endl;
 #else
-        (*m_dft_logger) << m_os_str.str() << s;
+        (*m_dft_logger) << m_os_str.str() << s << "\n"; //std::endl;
 #endif
     }
     if (m_dft_event_logger!=NULL)
