@@ -32,6 +32,7 @@ public:
     virtual ~dbg_class();
 
     void Message(const char *msg);                  //!< Send a message 
+    void Message(const std::string &msg);                  //!< Send a message 
     void MessageF(const char *format,...);                  //!< Send a message
 
     void SetFunctionInfo(dbg_class_function_info *info);
@@ -67,6 +68,13 @@ public:
     static int GetThreadNameWidth();
     static void Enable(bool enable=true);
     static void Disable();
+
+    inline std::ostringstream &GetTempOss(bool clear=false)
+    {
+        if (clear)
+            m_os_temp.str("");
+        return m_os_temp;
+    }
 protected:
     static bool m_enable;
     static int m_depth;                             //!< Overall calling depth
@@ -86,6 +94,7 @@ protected:
     std::vector<dbg_class_param_base *> m_params;   //!< Vector of parameters
     dbg_class_param_base *m_return;                 //!< The return value
     std::ostringstream m_os_str;                    //!< Output string stream
+    std::ostringstream m_os_temp;                    //!< Output string stream
     const char *m_name;
     bool m_print_state;                             //!< If true, the state of the module will be logged
     logmod::logger *m_logger;                       //!< The logger used to ouput traces
@@ -156,6 +165,10 @@ protected:
 
 #define DBG_MSG(msg) __up_dbg_class_member_call.Message(msg);
 #define DBG_MSGF(format,...) __up_dbg_class_member_call.MessageF(format,__VA_ARGS__);
+
+#define DBG_MSG_OS(msg) \
+    __up_dbg_class_member_call.GetTempOss(true) << msg; \
+    __up_dbg_class_member_call.Message(__up_dbg_class_member_call.GetTempOss().str());
 
 #define DBG_SET_THREAD_NAME(name) \
     dbg_log::dbg_class::SetThreadName(name)
