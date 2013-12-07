@@ -197,6 +197,8 @@ protected:
 #define DBG_MSG(msg)
 #define DBG_MSGF(format,...)
 
+#define DBG_MSG_OS(msg)
+
 #define DBG_SET_THREAD_NAME(name)
 
 #endif
