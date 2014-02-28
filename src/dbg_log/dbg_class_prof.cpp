@@ -32,7 +32,7 @@ uint64_t dbg_class_prof::RDTSC()
         //RDTSC exists only on intel platform starting from Pentium CPU it seems, should be fine for
         // x86 platform even under Linux but need to have proper inline assembly following GNU format
         // Can't be used for Solaris platform
-        #ifdef _MSC_VER
+        #if defined _MSC_VER && defined _M_IX86
             _asm  _emit 0x0F
             _asm  _emit 0x31
         #else
