@@ -18,6 +18,9 @@
 // </auto-generated>
 //
 
+#ifndef LOG_ICE_API_EXPORTS
+#   define LOG_ICE_API_EXPORTS
+#endif
 #include <log_ice/ice/logger_event.h>
 #include <Ice/LocalException.h>
 #include <Ice/ObjectFactory.h>
@@ -38,11 +41,11 @@
 
 static const ::std::string __loggerice__loggereventif__sendevent_name = "sendevent";
 
-::Ice::Object* IceInternal::upCast(::loggerice::loggerevent* p) { return p; }
-::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::loggerevent* p) { return p; }
+ICE_DECLSPEC_EXPORT ::Ice::Object* IceInternal::upCast(::loggerice::loggerevent* p) { return p; }
+ICE_DECLSPEC_EXPORT ::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::loggerevent* p) { return p; }
 
-::Ice::Object* IceInternal::upCast(::loggerice::loggereventif* p) { return p; }
-::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::loggereventif* p) { return p; }
+ICE_DECLSPEC_EXPORT ::Ice::Object* IceInternal::upCast(::loggerice::loggereventif* p) { return p; }
+ICE_DECLSPEC_EXPORT ::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::loggereventif* p) { return p; }
 
 void
 loggerice::__read(::IceInternal::BasicStream* __is, ::loggerice::loggereventPrx& v)
@@ -75,6 +78,9 @@ loggerice::__read(::IceInternal::BasicStream* __is, ::loggerice::loggereventifPr
         v->__copyFrom(proxy);
     }
 }
+#ifdef __SUNPRO_CC
+class ICE_DECLSPEC_EXPORT IceProxy::loggerice::loggerevent;
+#endif
 
 const ::std::string&
 IceProxy::loggerice::loggerevent::ice_staticId()
@@ -99,6 +105,9 @@ IceProxy::loggerice::loggerevent::__newInstance() const
 {
     return new loggerevent;
 }
+#ifdef __SUNPRO_CC
+class ICE_DECLSPEC_EXPORT IceProxy::loggerice::loggereventif;
+#endif
 
 void
 IceProxy::loggerice::loggereventif::sendevent(const ::loggerice::loggereventPtr& theevent, const ::Ice::Context* __ctx)
@@ -431,7 +440,7 @@ static __F__loggerice__loggerevent__Init __F__loggerice__loggerevent__i;
 extern "C" { void __F__loggerice__loggerevent__initializer() {} }
 #endif
 
-void 
+void ICE_DECLSPEC_EXPORT 
 loggerice::__patch__loggereventPtr(void* __addr, ::Ice::ObjectPtr& v)
 {
     ::loggerice::loggereventPtr* p = static_cast< ::loggerice::loggereventPtr*>(__addr);
@@ -589,7 +598,7 @@ loggerice::loggereventif::__read(const ::Ice::InputStreamPtr&, bool)
 }
 #endif
 
-void 
+void ICE_DECLSPEC_EXPORT 
 loggerice::__patch__loggereventifPtr(void* __addr, ::Ice::ObjectPtr& v)
 {
     ::loggerice::loggereventifPtr* p = static_cast< ::loggerice::loggereventifPtr*>(__addr);

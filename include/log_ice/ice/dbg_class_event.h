@@ -50,6 +50,14 @@
 #   endif
 #endif
 
+#ifndef LOG_ICE_API
+#   ifdef LOG_ICE_API_EXPORTS
+#       define LOG_ICE_API ICE_DECLSPEC_EXPORT
+#   else
+#       define LOG_ICE_API ICE_DECLSPEC_IMPORT
+#   endif
+#endif
+
 namespace IceProxy
 {
 
@@ -80,11 +88,11 @@ bool operator<(const dbgclasseventif&, const dbgclasseventif&);
 namespace IceInternal
 {
 
-::Ice::Object* upCast(::loggerice::dbgclassevent*);
-::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::dbgclassevent*);
+LOG_ICE_API ::Ice::Object* upCast(::loggerice::dbgclassevent*);
+LOG_ICE_API ::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::dbgclassevent*);
 
-::Ice::Object* upCast(::loggerice::dbgclasseventif*);
-::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::dbgclasseventif*);
+LOG_ICE_API ::Ice::Object* upCast(::loggerice::dbgclasseventif*);
+LOG_ICE_API ::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::dbgclasseventif*);
 
 }
 
@@ -94,14 +102,14 @@ namespace loggerice
 typedef ::IceInternal::Handle< ::loggerice::dbgclassevent> dbgclasseventPtr;
 typedef ::IceInternal::ProxyHandle< ::IceProxy::loggerice::dbgclassevent> dbgclasseventPrx;
 
-void __read(::IceInternal::BasicStream*, dbgclasseventPrx&);
-void __patch__dbgclasseventPtr(void*, ::Ice::ObjectPtr&);
+LOG_ICE_API void __read(::IceInternal::BasicStream*, dbgclasseventPrx&);
+LOG_ICE_API void __patch__dbgclasseventPtr(void*, ::Ice::ObjectPtr&);
 
 typedef ::IceInternal::Handle< ::loggerice::dbgclasseventif> dbgclasseventifPtr;
 typedef ::IceInternal::ProxyHandle< ::IceProxy::loggerice::dbgclasseventif> dbgclasseventifPrx;
 
-void __read(::IceInternal::BasicStream*, dbgclasseventifPrx&);
-void __patch__dbgclasseventifPtr(void*, ::Ice::ObjectPtr&);
+LOG_ICE_API void __read(::IceInternal::BasicStream*, dbgclasseventifPrx&);
+LOG_ICE_API void __patch__dbgclasseventifPtr(void*, ::Ice::ObjectPtr&);
 
 }
 
@@ -313,13 +321,13 @@ public:
     #endif
     }
     
-    static const ::std::string& ice_staticId();
+    LOG_ICE_API static const ::std::string& ice_staticId();
 
 private: 
 
-    virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
-    virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
-    virtual ::IceProxy::Ice::Object* __newInstance() const;
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
+    LOG_ICE_API virtual ::IceProxy::Ice::Object* __newInstance() const;
 };
 
 class dbgclasseventif : virtual public ::IceProxy::Ice::Object
@@ -365,12 +373,12 @@ public:
         return begin_sendevent(theevent, &__ctx, __del, __cookie);
     }
 
-    void end_sendevent(const ::Ice::AsyncResultPtr&);
+    LOG_ICE_API void end_sendevent(const ::Ice::AsyncResultPtr&);
     
 private:
 
-    void sendevent(const ::loggerice::dbgclasseventPtr&, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_sendevent(const ::loggerice::dbgclasseventPtr&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    LOG_ICE_API void sendevent(const ::loggerice::dbgclasseventPtr&, const ::Ice::Context*);
+    LOG_ICE_API ::Ice::AsyncResultPtr begin_sendevent(const ::loggerice::dbgclasseventPtr&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
     
@@ -564,13 +572,13 @@ public:
     #endif
     }
     
-    static const ::std::string& ice_staticId();
+    LOG_ICE_API static const ::std::string& ice_staticId();
 
 private: 
 
-    virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
-    virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
-    virtual ::IceProxy::Ice::Object* __newInstance() const;
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
+    LOG_ICE_API virtual ::IceProxy::Ice::Object* __newInstance() const;
 };
 
 }
@@ -583,12 +591,12 @@ namespace IceDelegate
 namespace loggerice
 {
 
-class dbgclassevent : virtual public ::IceDelegate::loggerice::event
+class LOG_ICE_API dbgclassevent : virtual public ::IceDelegate::loggerice::event
 {
 public:
 };
 
-class dbgclasseventif : virtual public ::IceDelegate::Ice::Object
+class LOG_ICE_API dbgclasseventif : virtual public ::IceDelegate::Ice::Object
 {
 public:
 
@@ -605,14 +613,14 @@ namespace IceDelegateM
 namespace loggerice
 {
 
-class dbgclassevent : virtual public ::IceDelegate::loggerice::dbgclassevent,
-                      virtual public ::IceDelegateM::loggerice::event
+class LOG_ICE_API dbgclassevent : virtual public ::IceDelegate::loggerice::dbgclassevent,
+                                  virtual public ::IceDelegateM::loggerice::event
 {
 public:
 };
 
-class dbgclasseventif : virtual public ::IceDelegate::loggerice::dbgclasseventif,
-                        virtual public ::IceDelegateM::Ice::Object
+class LOG_ICE_API dbgclasseventif : virtual public ::IceDelegate::loggerice::dbgclasseventif,
+                                    virtual public ::IceDelegateM::Ice::Object
 {
 public:
 
@@ -629,14 +637,14 @@ namespace IceDelegateD
 namespace loggerice
 {
 
-class dbgclassevent : virtual public ::IceDelegate::loggerice::dbgclassevent,
-                      virtual public ::IceDelegateD::loggerice::event
+class LOG_ICE_API dbgclassevent : virtual public ::IceDelegate::loggerice::dbgclassevent,
+                                  virtual public ::IceDelegateD::loggerice::event
 {
 public:
 };
 
-class dbgclasseventif : virtual public ::IceDelegate::loggerice::dbgclasseventif,
-                        virtual public ::IceDelegateD::Ice::Object
+class LOG_ICE_API dbgclasseventif : virtual public ::IceDelegate::loggerice::dbgclasseventif,
+                                    virtual public ::IceDelegateD::Ice::Object
 {
 public:
 
@@ -650,7 +658,7 @@ public:
 namespace loggerice
 {
 
-class dbgclassevent : public ::loggerice::event
+class LOG_ICE_API dbgclassevent : public ::loggerice::event
 {
 public:
 
@@ -713,7 +721,7 @@ inline bool operator<(const dbgclassevent& l, const dbgclassevent& r)
     return static_cast<const ::Ice::Object&>(l) < static_cast<const ::Ice::Object&>(r);
 }
 
-class dbgclasseventif : virtual public ::Ice::Object
+class LOG_ICE_API dbgclasseventif : virtual public ::Ice::Object
 {
 public:
 

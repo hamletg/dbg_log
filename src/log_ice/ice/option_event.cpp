@@ -18,6 +18,9 @@
 // </auto-generated>
 //
 
+#ifndef LOG_ICE_API_EXPORTS
+#   define LOG_ICE_API_EXPORTS
+#endif
 #include <log_ice/ice/option_event.h>
 #include <Ice/LocalException.h>
 #include <Ice/ObjectFactory.h>
@@ -38,11 +41,11 @@
 
 static const ::std::string __loggerice__optioneventif__sendevent_name = "sendevent";
 
-::Ice::Object* IceInternal::upCast(::loggerice::optionevent* p) { return p; }
-::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::optionevent* p) { return p; }
+ICE_DECLSPEC_EXPORT ::Ice::Object* IceInternal::upCast(::loggerice::optionevent* p) { return p; }
+ICE_DECLSPEC_EXPORT ::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::optionevent* p) { return p; }
 
-::Ice::Object* IceInternal::upCast(::loggerice::optioneventif* p) { return p; }
-::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::optioneventif* p) { return p; }
+ICE_DECLSPEC_EXPORT ::Ice::Object* IceInternal::upCast(::loggerice::optioneventif* p) { return p; }
+ICE_DECLSPEC_EXPORT ::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::optioneventif* p) { return p; }
 
 void
 loggerice::__read(::IceInternal::BasicStream* __is, ::loggerice::optioneventPrx& v)
@@ -75,6 +78,9 @@ loggerice::__read(::IceInternal::BasicStream* __is, ::loggerice::optioneventifPr
         v->__copyFrom(proxy);
     }
 }
+#ifdef __SUNPRO_CC
+class ICE_DECLSPEC_EXPORT IceProxy::loggerice::optionevent;
+#endif
 
 const ::std::string&
 IceProxy::loggerice::optionevent::ice_staticId()
@@ -99,6 +105,9 @@ IceProxy::loggerice::optionevent::__newInstance() const
 {
     return new optionevent;
 }
+#ifdef __SUNPRO_CC
+class ICE_DECLSPEC_EXPORT IceProxy::loggerice::optioneventif;
+#endif
 
 void
 IceProxy::loggerice::optioneventif::sendevent(const ::loggerice::optioneventPtr& theevent, const ::Ice::Context* __ctx)
@@ -434,7 +443,7 @@ static __F__loggerice__optionevent__Init __F__loggerice__optionevent__i;
 extern "C" { void __F__loggerice__optionevent__initializer() {} }
 #endif
 
-void 
+void ICE_DECLSPEC_EXPORT 
 loggerice::__patch__optioneventPtr(void* __addr, ::Ice::ObjectPtr& v)
 {
     ::loggerice::optioneventPtr* p = static_cast< ::loggerice::optioneventPtr*>(__addr);
@@ -592,7 +601,7 @@ loggerice::optioneventif::__read(const ::Ice::InputStreamPtr&, bool)
 }
 #endif
 
-void 
+void ICE_DECLSPEC_EXPORT 
 loggerice::__patch__optioneventifPtr(void* __addr, ::Ice::ObjectPtr& v)
 {
     ::loggerice::optioneventifPtr* p = static_cast< ::loggerice::optioneventifPtr*>(__addr);

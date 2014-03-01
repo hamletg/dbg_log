@@ -18,6 +18,9 @@
 // </auto-generated>
 //
 
+#ifndef LOG_ICE_API_EXPORTS
+#   define LOG_ICE_API_EXPORTS
+#endif
 #include <log_ice/ice/dbg_class_event.h>
 #include <Ice/LocalException.h>
 #include <Ice/ObjectFactory.h>
@@ -38,11 +41,11 @@
 
 static const ::std::string __loggerice__dbgclasseventif__sendevent_name = "sendevent";
 
-::Ice::Object* IceInternal::upCast(::loggerice::dbgclassevent* p) { return p; }
-::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::dbgclassevent* p) { return p; }
+ICE_DECLSPEC_EXPORT ::Ice::Object* IceInternal::upCast(::loggerice::dbgclassevent* p) { return p; }
+ICE_DECLSPEC_EXPORT ::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::dbgclassevent* p) { return p; }
 
-::Ice::Object* IceInternal::upCast(::loggerice::dbgclasseventif* p) { return p; }
-::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::dbgclasseventif* p) { return p; }
+ICE_DECLSPEC_EXPORT ::Ice::Object* IceInternal::upCast(::loggerice::dbgclasseventif* p) { return p; }
+ICE_DECLSPEC_EXPORT ::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::dbgclasseventif* p) { return p; }
 
 void
 loggerice::__read(::IceInternal::BasicStream* __is, ::loggerice::dbgclasseventPrx& v)
@@ -75,6 +78,9 @@ loggerice::__read(::IceInternal::BasicStream* __is, ::loggerice::dbgclasseventif
         v->__copyFrom(proxy);
     }
 }
+#ifdef __SUNPRO_CC
+class ICE_DECLSPEC_EXPORT IceProxy::loggerice::dbgclassevent;
+#endif
 
 const ::std::string&
 IceProxy::loggerice::dbgclassevent::ice_staticId()
@@ -99,6 +105,9 @@ IceProxy::loggerice::dbgclassevent::__newInstance() const
 {
     return new dbgclassevent;
 }
+#ifdef __SUNPRO_CC
+class ICE_DECLSPEC_EXPORT IceProxy::loggerice::dbgclasseventif;
+#endif
 
 void
 IceProxy::loggerice::dbgclasseventif::sendevent(const ::loggerice::dbgclasseventPtr& theevent, const ::Ice::Context* __ctx)
@@ -434,7 +443,7 @@ static __F__loggerice__dbgclassevent__Init __F__loggerice__dbgclassevent__i;
 extern "C" { void __F__loggerice__dbgclassevent__initializer() {} }
 #endif
 
-void 
+void ICE_DECLSPEC_EXPORT 
 loggerice::__patch__dbgclasseventPtr(void* __addr, ::Ice::ObjectPtr& v)
 {
     ::loggerice::dbgclasseventPtr* p = static_cast< ::loggerice::dbgclasseventPtr*>(__addr);
@@ -592,7 +601,7 @@ loggerice::dbgclasseventif::__read(const ::Ice::InputStreamPtr&, bool)
 }
 #endif
 
-void 
+void ICE_DECLSPEC_EXPORT 
 loggerice::__patch__dbgclasseventifPtr(void* __addr, ::Ice::ObjectPtr& v)
 {
     ::loggerice::dbgclasseventifPtr* p = static_cast< ::loggerice::dbgclasseventifPtr*>(__addr);

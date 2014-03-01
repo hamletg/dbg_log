@@ -50,6 +50,14 @@
 #   endif
 #endif
 
+#ifndef LOG_ICE_API
+#   ifdef LOG_ICE_API_EXPORTS
+#       define LOG_ICE_API ICE_DECLSPEC_EXPORT
+#   else
+#       define LOG_ICE_API ICE_DECLSPEC_IMPORT
+#   endif
+#endif
+
 namespace IceProxy
 {
 
@@ -80,11 +88,11 @@ bool operator<(const optioneventif&, const optioneventif&);
 namespace IceInternal
 {
 
-::Ice::Object* upCast(::loggerice::optionevent*);
-::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::optionevent*);
+LOG_ICE_API ::Ice::Object* upCast(::loggerice::optionevent*);
+LOG_ICE_API ::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::optionevent*);
 
-::Ice::Object* upCast(::loggerice::optioneventif*);
-::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::optioneventif*);
+LOG_ICE_API ::Ice::Object* upCast(::loggerice::optioneventif*);
+LOG_ICE_API ::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::optioneventif*);
 
 }
 
@@ -94,14 +102,14 @@ namespace loggerice
 typedef ::IceInternal::Handle< ::loggerice::optionevent> optioneventPtr;
 typedef ::IceInternal::ProxyHandle< ::IceProxy::loggerice::optionevent> optioneventPrx;
 
-void __read(::IceInternal::BasicStream*, optioneventPrx&);
-void __patch__optioneventPtr(void*, ::Ice::ObjectPtr&);
+LOG_ICE_API void __read(::IceInternal::BasicStream*, optioneventPrx&);
+LOG_ICE_API void __patch__optioneventPtr(void*, ::Ice::ObjectPtr&);
 
 typedef ::IceInternal::Handle< ::loggerice::optioneventif> optioneventifPtr;
 typedef ::IceInternal::ProxyHandle< ::IceProxy::loggerice::optioneventif> optioneventifPrx;
 
-void __read(::IceInternal::BasicStream*, optioneventifPrx&);
-void __patch__optioneventifPtr(void*, ::Ice::ObjectPtr&);
+LOG_ICE_API void __read(::IceInternal::BasicStream*, optioneventifPrx&);
+LOG_ICE_API void __patch__optioneventifPtr(void*, ::Ice::ObjectPtr&);
 
 }
 
@@ -313,13 +321,13 @@ public:
     #endif
     }
     
-    static const ::std::string& ice_staticId();
+    LOG_ICE_API static const ::std::string& ice_staticId();
 
 private: 
 
-    virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
-    virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
-    virtual ::IceProxy::Ice::Object* __newInstance() const;
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
+    LOG_ICE_API virtual ::IceProxy::Ice::Object* __newInstance() const;
 };
 
 class optioneventif : virtual public ::IceProxy::Ice::Object
@@ -365,12 +373,12 @@ public:
         return begin_sendevent(theevent, &__ctx, __del, __cookie);
     }
 
-    void end_sendevent(const ::Ice::AsyncResultPtr&);
+    LOG_ICE_API void end_sendevent(const ::Ice::AsyncResultPtr&);
     
 private:
 
-    void sendevent(const ::loggerice::optioneventPtr&, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_sendevent(const ::loggerice::optioneventPtr&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    LOG_ICE_API void sendevent(const ::loggerice::optioneventPtr&, const ::Ice::Context*);
+    LOG_ICE_API ::Ice::AsyncResultPtr begin_sendevent(const ::loggerice::optioneventPtr&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
     
@@ -564,13 +572,13 @@ public:
     #endif
     }
     
-    static const ::std::string& ice_staticId();
+    LOG_ICE_API static const ::std::string& ice_staticId();
 
 private: 
 
-    virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
-    virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
-    virtual ::IceProxy::Ice::Object* __newInstance() const;
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
+    LOG_ICE_API virtual ::IceProxy::Ice::Object* __newInstance() const;
 };
 
 }
@@ -583,12 +591,12 @@ namespace IceDelegate
 namespace loggerice
 {
 
-class optionevent : virtual public ::IceDelegate::loggerice::event
+class LOG_ICE_API optionevent : virtual public ::IceDelegate::loggerice::event
 {
 public:
 };
 
-class optioneventif : virtual public ::IceDelegate::Ice::Object
+class LOG_ICE_API optioneventif : virtual public ::IceDelegate::Ice::Object
 {
 public:
 
@@ -605,14 +613,14 @@ namespace IceDelegateM
 namespace loggerice
 {
 
-class optionevent : virtual public ::IceDelegate::loggerice::optionevent,
-                    virtual public ::IceDelegateM::loggerice::event
+class LOG_ICE_API optionevent : virtual public ::IceDelegate::loggerice::optionevent,
+                                virtual public ::IceDelegateM::loggerice::event
 {
 public:
 };
 
-class optioneventif : virtual public ::IceDelegate::loggerice::optioneventif,
-                      virtual public ::IceDelegateM::Ice::Object
+class LOG_ICE_API optioneventif : virtual public ::IceDelegate::loggerice::optioneventif,
+                                  virtual public ::IceDelegateM::Ice::Object
 {
 public:
 
@@ -629,14 +637,14 @@ namespace IceDelegateD
 namespace loggerice
 {
 
-class optionevent : virtual public ::IceDelegate::loggerice::optionevent,
-                    virtual public ::IceDelegateD::loggerice::event
+class LOG_ICE_API optionevent : virtual public ::IceDelegate::loggerice::optionevent,
+                                virtual public ::IceDelegateD::loggerice::event
 {
 public:
 };
 
-class optioneventif : virtual public ::IceDelegate::loggerice::optioneventif,
-                      virtual public ::IceDelegateD::Ice::Object
+class LOG_ICE_API optioneventif : virtual public ::IceDelegate::loggerice::optioneventif,
+                                  virtual public ::IceDelegateD::Ice::Object
 {
 public:
 
@@ -650,7 +658,7 @@ public:
 namespace loggerice
 {
 
-class optionevent : public ::loggerice::event
+class LOG_ICE_API optionevent : public ::loggerice::event
 {
 public:
 
@@ -713,7 +721,7 @@ inline bool operator<(const optionevent& l, const optionevent& r)
     return static_cast<const ::Ice::Object&>(l) < static_cast<const ::Ice::Object&>(r);
 }
 
-class optioneventif : virtual public ::Ice::Object
+class LOG_ICE_API optioneventif : virtual public ::Ice::Object
 {
 public:
 

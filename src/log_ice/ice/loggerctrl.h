@@ -48,6 +48,14 @@
 #   endif
 #endif
 
+#ifndef LOG_ICE_API
+#   ifdef LOG_ICE_API_EXPORTS
+#       define LOG_ICE_API ICE_DECLSPEC_EXPORT
+#   else
+#       define LOG_ICE_API ICE_DECLSPEC_IMPORT
+#   endif
+#endif
+
 namespace IceProxy
 {
 
@@ -72,8 +80,8 @@ bool operator<(const loggerctrl&, const loggerctrl&);
 namespace IceInternal
 {
 
-::Ice::Object* upCast(::loggerice::loggerctrl*);
-::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::loggerctrl*);
+LOG_ICE_API ::Ice::Object* upCast(::loggerice::loggerctrl*);
+LOG_ICE_API ::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::loggerctrl*);
 
 }
 
@@ -83,8 +91,8 @@ namespace loggerice
 typedef ::IceInternal::Handle< ::loggerice::loggerctrl> loggerctrlPtr;
 typedef ::IceInternal::ProxyHandle< ::IceProxy::loggerice::loggerctrl> loggerctrlPrx;
 
-void __read(::IceInternal::BasicStream*, loggerctrlPrx&);
-void __patch__loggerctrlPtr(void*, ::Ice::ObjectPtr&);
+LOG_ICE_API void __read(::IceInternal::BasicStream*, loggerctrlPrx&);
+LOG_ICE_API void __patch__loggerctrlPtr(void*, ::Ice::ObjectPtr&);
 
 }
 
@@ -151,12 +159,12 @@ public:
         return begin_Register(name, &__ctx, __del, __cookie);
     }
 
-    ::Ice::Int end_Register(const ::Ice::AsyncResultPtr&);
+    LOG_ICE_API ::Ice::Int end_Register(const ::Ice::AsyncResultPtr&);
     
 private:
 
-    ::Ice::Int Register(const ::std::string&, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_Register(const ::std::string&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    LOG_ICE_API ::Ice::Int Register(const ::std::string&, const ::Ice::Context*);
+    LOG_ICE_API ::Ice::AsyncResultPtr begin_Register(const ::std::string&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
 
@@ -199,12 +207,12 @@ public:
         return begin_SetName(id, name, &__ctx, __del, __cookie);
     }
 
-    void end_SetName(const ::Ice::AsyncResultPtr&);
+    LOG_ICE_API void end_SetName(const ::Ice::AsyncResultPtr&);
     
 private:
 
-    void SetName(::Ice::Int, const ::std::string&, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_SetName(::Ice::Int, const ::std::string&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    LOG_ICE_API void SetName(::Ice::Int, const ::std::string&, const ::Ice::Context*);
+    LOG_ICE_API ::Ice::AsyncResultPtr begin_SetName(::Ice::Int, const ::std::string&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
 
@@ -247,12 +255,12 @@ public:
         return begin_SetThreadName(regid, threadid, name, &__ctx, __del, __cookie);
     }
 
-    void end_SetThreadName(const ::Ice::AsyncResultPtr&);
+    LOG_ICE_API void end_SetThreadName(const ::Ice::AsyncResultPtr&);
     
 private:
 
-    void SetThreadName(::Ice::Int, ::Ice::Long, const ::std::string&, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_SetThreadName(::Ice::Int, ::Ice::Long, const ::std::string&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    LOG_ICE_API void SetThreadName(::Ice::Int, ::Ice::Long, const ::std::string&, const ::Ice::Context*);
+    LOG_ICE_API ::Ice::AsyncResultPtr begin_SetThreadName(::Ice::Int, ::Ice::Long, const ::std::string&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
     
@@ -446,13 +454,13 @@ public:
     #endif
     }
     
-    static const ::std::string& ice_staticId();
+    LOG_ICE_API static const ::std::string& ice_staticId();
 
 private: 
 
-    virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
-    virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
-    virtual ::IceProxy::Ice::Object* __newInstance() const;
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
+    LOG_ICE_API virtual ::IceProxy::Ice::Object* __newInstance() const;
 };
 
 }
@@ -465,7 +473,7 @@ namespace IceDelegate
 namespace loggerice
 {
 
-class loggerctrl : virtual public ::IceDelegate::Ice::Object
+class LOG_ICE_API loggerctrl : virtual public ::IceDelegate::Ice::Object
 {
 public:
 
@@ -486,8 +494,8 @@ namespace IceDelegateM
 namespace loggerice
 {
 
-class loggerctrl : virtual public ::IceDelegate::loggerice::loggerctrl,
-                   virtual public ::IceDelegateM::Ice::Object
+class LOG_ICE_API loggerctrl : virtual public ::IceDelegate::loggerice::loggerctrl,
+                               virtual public ::IceDelegateM::Ice::Object
 {
 public:
 
@@ -508,8 +516,8 @@ namespace IceDelegateD
 namespace loggerice
 {
 
-class loggerctrl : virtual public ::IceDelegate::loggerice::loggerctrl,
-                   virtual public ::IceDelegateD::Ice::Object
+class LOG_ICE_API loggerctrl : virtual public ::IceDelegate::loggerice::loggerctrl,
+                               virtual public ::IceDelegateD::Ice::Object
 {
 public:
 
@@ -527,7 +535,7 @@ public:
 namespace loggerice
 {
 
-class loggerctrl : virtual public ::Ice::Object
+class LOG_ICE_API loggerctrl : virtual public ::Ice::Object
 {
 public:
 

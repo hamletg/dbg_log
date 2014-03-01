@@ -18,6 +18,9 @@
 // </auto-generated>
 //
 
+#ifndef LOG_ICE_API_EXPORTS
+#   define LOG_ICE_API_EXPORTS
+#endif
 #include <log_ice/ice/event.h>
 #include <Ice/LocalException.h>
 #include <Ice/ObjectFactory.h>
@@ -36,8 +39,8 @@
 #   endif
 #endif
 
-::Ice::Object* IceInternal::upCast(::loggerice::event* p) { return p; }
-::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::event* p) { return p; }
+ICE_DECLSPEC_EXPORT ::Ice::Object* IceInternal::upCast(::loggerice::event* p) { return p; }
+ICE_DECLSPEC_EXPORT ::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::event* p) { return p; }
 
 void
 loggerice::__read(::IceInternal::BasicStream* __is, ::loggerice::eventPrx& v)
@@ -54,6 +57,9 @@ loggerice::__read(::IceInternal::BasicStream* __is, ::loggerice::eventPrx& v)
         v->__copyFrom(proxy);
     }
 }
+#ifdef __SUNPRO_CC
+class ICE_DECLSPEC_EXPORT IceProxy::loggerice::event;
+#endif
 
 const ::std::string&
 IceProxy::loggerice::event::ice_staticId()
@@ -242,7 +248,7 @@ static __F__loggerice__event__Init __F__loggerice__event__i;
 extern "C" { void __F__loggerice__event__initializer() {} }
 #endif
 
-void 
+void ICE_DECLSPEC_EXPORT 
 loggerice::__patch__eventPtr(void* __addr, ::Ice::ObjectPtr& v)
 {
     ::loggerice::eventPtr* p = static_cast< ::loggerice::eventPtr*>(__addr);

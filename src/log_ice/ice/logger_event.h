@@ -50,6 +50,14 @@
 #   endif
 #endif
 
+#ifndef LOG_ICE_API
+#   ifdef LOG_ICE_API_EXPORTS
+#       define LOG_ICE_API ICE_DECLSPEC_EXPORT
+#   else
+#       define LOG_ICE_API ICE_DECLSPEC_IMPORT
+#   endif
+#endif
+
 namespace IceProxy
 {
 
@@ -80,11 +88,11 @@ bool operator<(const loggereventif&, const loggereventif&);
 namespace IceInternal
 {
 
-::Ice::Object* upCast(::loggerice::loggerevent*);
-::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::loggerevent*);
+LOG_ICE_API ::Ice::Object* upCast(::loggerice::loggerevent*);
+LOG_ICE_API ::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::loggerevent*);
 
-::Ice::Object* upCast(::loggerice::loggereventif*);
-::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::loggereventif*);
+LOG_ICE_API ::Ice::Object* upCast(::loggerice::loggereventif*);
+LOG_ICE_API ::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::loggereventif*);
 
 }
 
@@ -94,14 +102,14 @@ namespace loggerice
 typedef ::IceInternal::Handle< ::loggerice::loggerevent> loggereventPtr;
 typedef ::IceInternal::ProxyHandle< ::IceProxy::loggerice::loggerevent> loggereventPrx;
 
-void __read(::IceInternal::BasicStream*, loggereventPrx&);
-void __patch__loggereventPtr(void*, ::Ice::ObjectPtr&);
+LOG_ICE_API void __read(::IceInternal::BasicStream*, loggereventPrx&);
+LOG_ICE_API void __patch__loggereventPtr(void*, ::Ice::ObjectPtr&);
 
 typedef ::IceInternal::Handle< ::loggerice::loggereventif> loggereventifPtr;
 typedef ::IceInternal::ProxyHandle< ::IceProxy::loggerice::loggereventif> loggereventifPrx;
 
-void __read(::IceInternal::BasicStream*, loggereventifPrx&);
-void __patch__loggereventifPtr(void*, ::Ice::ObjectPtr&);
+LOG_ICE_API void __read(::IceInternal::BasicStream*, loggereventifPrx&);
+LOG_ICE_API void __patch__loggereventifPtr(void*, ::Ice::ObjectPtr&);
 
 }
 
@@ -313,13 +321,13 @@ public:
     #endif
     }
     
-    static const ::std::string& ice_staticId();
+    LOG_ICE_API static const ::std::string& ice_staticId();
 
 private: 
 
-    virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
-    virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
-    virtual ::IceProxy::Ice::Object* __newInstance() const;
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
+    LOG_ICE_API virtual ::IceProxy::Ice::Object* __newInstance() const;
 };
 
 class loggereventif : virtual public ::IceProxy::Ice::Object
@@ -365,12 +373,12 @@ public:
         return begin_sendevent(theevent, &__ctx, __del, __cookie);
     }
 
-    void end_sendevent(const ::Ice::AsyncResultPtr&);
+    LOG_ICE_API void end_sendevent(const ::Ice::AsyncResultPtr&);
     
 private:
 
-    void sendevent(const ::loggerice::loggereventPtr&, const ::Ice::Context*);
-    ::Ice::AsyncResultPtr begin_sendevent(const ::loggerice::loggereventPtr&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
+    LOG_ICE_API void sendevent(const ::loggerice::loggereventPtr&, const ::Ice::Context*);
+    LOG_ICE_API ::Ice::AsyncResultPtr begin_sendevent(const ::loggerice::loggereventPtr&, const ::Ice::Context*, const ::IceInternal::CallbackBasePtr&, const ::Ice::LocalObjectPtr& __cookie = 0);
     
 public:
     
@@ -564,13 +572,13 @@ public:
     #endif
     }
     
-    static const ::std::string& ice_staticId();
+    LOG_ICE_API static const ::std::string& ice_staticId();
 
 private: 
 
-    virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
-    virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
-    virtual ::IceProxy::Ice::Object* __newInstance() const;
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
+    LOG_ICE_API virtual ::IceProxy::Ice::Object* __newInstance() const;
 };
 
 }
@@ -583,12 +591,12 @@ namespace IceDelegate
 namespace loggerice
 {
 
-class loggerevent : virtual public ::IceDelegate::loggerice::event
+class LOG_ICE_API loggerevent : virtual public ::IceDelegate::loggerice::event
 {
 public:
 };
 
-class loggereventif : virtual public ::IceDelegate::Ice::Object
+class LOG_ICE_API loggereventif : virtual public ::IceDelegate::Ice::Object
 {
 public:
 
@@ -605,14 +613,14 @@ namespace IceDelegateM
 namespace loggerice
 {
 
-class loggerevent : virtual public ::IceDelegate::loggerice::loggerevent,
-                    virtual public ::IceDelegateM::loggerice::event
+class LOG_ICE_API loggerevent : virtual public ::IceDelegate::loggerice::loggerevent,
+                                virtual public ::IceDelegateM::loggerice::event
 {
 public:
 };
 
-class loggereventif : virtual public ::IceDelegate::loggerice::loggereventif,
-                      virtual public ::IceDelegateM::Ice::Object
+class LOG_ICE_API loggereventif : virtual public ::IceDelegate::loggerice::loggereventif,
+                                  virtual public ::IceDelegateM::Ice::Object
 {
 public:
 
@@ -629,14 +637,14 @@ namespace IceDelegateD
 namespace loggerice
 {
 
-class loggerevent : virtual public ::IceDelegate::loggerice::loggerevent,
-                    virtual public ::IceDelegateD::loggerice::event
+class LOG_ICE_API loggerevent : virtual public ::IceDelegate::loggerice::loggerevent,
+                                virtual public ::IceDelegateD::loggerice::event
 {
 public:
 };
 
-class loggereventif : virtual public ::IceDelegate::loggerice::loggereventif,
-                      virtual public ::IceDelegateD::Ice::Object
+class LOG_ICE_API loggereventif : virtual public ::IceDelegate::loggerice::loggereventif,
+                                  virtual public ::IceDelegateD::Ice::Object
 {
 public:
 
@@ -650,7 +658,7 @@ public:
 namespace loggerice
 {
 
-class loggerevent : public ::loggerice::event
+class LOG_ICE_API loggerevent : public ::loggerice::event
 {
 public:
 
@@ -711,7 +719,7 @@ inline bool operator<(const loggerevent& l, const loggerevent& r)
     return static_cast<const ::Ice::Object&>(l) < static_cast<const ::Ice::Object&>(r);
 }
 
-class loggereventif : virtual public ::Ice::Object
+class LOG_ICE_API loggereventif : virtual public ::Ice::Object
 {
 public:
 

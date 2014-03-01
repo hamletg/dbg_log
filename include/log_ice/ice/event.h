@@ -49,6 +49,14 @@
 #   endif
 #endif
 
+#ifndef LOG_ICE_API
+#   ifdef LOG_ICE_API_EXPORTS
+#       define LOG_ICE_API ICE_DECLSPEC_EXPORT
+#   else
+#       define LOG_ICE_API ICE_DECLSPEC_IMPORT
+#   endif
+#endif
+
 namespace IceProxy
 {
 
@@ -73,8 +81,8 @@ bool operator<(const event&, const event&);
 namespace IceInternal
 {
 
-::Ice::Object* upCast(::loggerice::event*);
-::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::event*);
+LOG_ICE_API ::Ice::Object* upCast(::loggerice::event*);
+LOG_ICE_API ::IceProxy::Ice::Object* upCast(::IceProxy::loggerice::event*);
 
 }
 
@@ -84,8 +92,8 @@ namespace loggerice
 typedef ::IceInternal::Handle< ::loggerice::event> eventPtr;
 typedef ::IceInternal::ProxyHandle< ::IceProxy::loggerice::event> eventPrx;
 
-void __read(::IceInternal::BasicStream*, eventPrx&);
-void __patch__eventPtr(void*, ::Ice::ObjectPtr&);
+LOG_ICE_API void __read(::IceInternal::BasicStream*, eventPrx&);
+LOG_ICE_API void __patch__eventPtr(void*, ::Ice::ObjectPtr&);
 
 }
 
@@ -294,13 +302,13 @@ public:
     #endif
     }
     
-    static const ::std::string& ice_staticId();
+    LOG_ICE_API static const ::std::string& ice_staticId();
 
 private: 
 
-    virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
-    virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
-    virtual ::IceProxy::Ice::Object* __newInstance() const;
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateM::Ice::Object> __createDelegateM();
+    LOG_ICE_API virtual ::IceInternal::Handle< ::IceDelegateD::Ice::Object> __createDelegateD();
+    LOG_ICE_API virtual ::IceProxy::Ice::Object* __newInstance() const;
 };
 
 }
@@ -313,7 +321,7 @@ namespace IceDelegate
 namespace loggerice
 {
 
-class event : virtual public ::IceDelegate::Ice::Object
+class LOG_ICE_API event : virtual public ::IceDelegate::Ice::Object
 {
 public:
 };
@@ -328,8 +336,8 @@ namespace IceDelegateM
 namespace loggerice
 {
 
-class event : virtual public ::IceDelegate::loggerice::event,
-              virtual public ::IceDelegateM::Ice::Object
+class LOG_ICE_API event : virtual public ::IceDelegate::loggerice::event,
+                          virtual public ::IceDelegateM::Ice::Object
 {
 public:
 };
@@ -344,8 +352,8 @@ namespace IceDelegateD
 namespace loggerice
 {
 
-class event : virtual public ::IceDelegate::loggerice::event,
-              virtual public ::IceDelegateD::Ice::Object
+class LOG_ICE_API event : virtual public ::IceDelegate::loggerice::event,
+                          virtual public ::IceDelegateD::Ice::Object
 {
 public:
 };
@@ -357,7 +365,7 @@ public:
 namespace loggerice
 {
 
-class event : virtual public ::Ice::Object
+class LOG_ICE_API event : virtual public ::Ice::Object
 {
 public:
 

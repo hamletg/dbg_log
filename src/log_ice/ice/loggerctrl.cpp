@@ -18,6 +18,9 @@
 // </auto-generated>
 //
 
+#ifndef LOG_ICE_API_EXPORTS
+#   define LOG_ICE_API_EXPORTS
+#endif
 #include <log_ice/ice/loggerctrl.h>
 #include <Ice/LocalException.h>
 #include <Ice/ObjectFactory.h>
@@ -42,8 +45,8 @@ static const ::std::string __loggerice__loggerctrl__SetName_name = "SetName";
 
 static const ::std::string __loggerice__loggerctrl__SetThreadName_name = "SetThreadName";
 
-::Ice::Object* IceInternal::upCast(::loggerice::loggerctrl* p) { return p; }
-::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::loggerctrl* p) { return p; }
+ICE_DECLSPEC_EXPORT ::Ice::Object* IceInternal::upCast(::loggerice::loggerctrl* p) { return p; }
+ICE_DECLSPEC_EXPORT ::IceProxy::Ice::Object* IceInternal::upCast(::IceProxy::loggerice::loggerctrl* p) { return p; }
 
 void
 loggerice::__read(::IceInternal::BasicStream* __is, ::loggerice::loggerctrlPrx& v)
@@ -60,6 +63,9 @@ loggerice::__read(::IceInternal::BasicStream* __is, ::loggerice::loggerctrlPrx& 
         v->__copyFrom(proxy);
     }
 }
+#ifdef __SUNPRO_CC
+class ICE_DECLSPEC_EXPORT IceProxy::loggerice::loggerctrl;
+#endif
 
 ::Ice::Int
 IceProxy::loggerice::loggerctrl::Register(const ::std::string& name, const ::Ice::Context* __ctx)
@@ -769,7 +775,7 @@ loggerice::loggerctrl::__read(const ::Ice::InputStreamPtr&, bool)
 }
 #endif
 
-void 
+void ICE_DECLSPEC_EXPORT 
 loggerice::__patch__loggerctrlPtr(void* __addr, ::Ice::ObjectPtr& v)
 {
     ::loggerice::loggerctrlPtr* p = static_cast< ::loggerice::loggerctrlPtr*>(__addr);
