@@ -319,7 +319,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\include;..\..\..\..\include;e;$(WXWIN)\include;$(WXWIN)\lib\vc90_x64_dll\mswu;$(ICE)\include"
+				AdditionalIncludeDirectories="..\..\include;..\..\..\..\include;$(WXWIN)\include;$(WXWIN)\lib\vc90_x64_dll\mswu;$(ICE)\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_DEPRECATE=1;_CRT_NON_CONFORMING_SWPRINTFS=1;_SCL_SECURE_NO_WARNINGS=1;__WXMSW__;_UNICODE;WXUSINGDLL;NOPCH;LOGMOD_USE;LOG_ICE_USE;DBG_LOG_USE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -810,6 +810,14 @@
 			<File
 				RelativePath="..\..\src\log_ice_dbg\ice\logicedbgctrlif.ice"
 				>
+				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name=".ice files to C++ files"
+						DLLExport=""
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\log_ice_dbg\ice\printer.ice"

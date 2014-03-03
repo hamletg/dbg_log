@@ -702,22 +702,62 @@
 						DLLExport="LOG_ICE_API"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name=".ice files to C++ files"
+						DLLExport="LOG_ICE_API"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\log_ice\ice\event.ice"
 				>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name=".ice files to C++ files"
+						DLLExport="LOG_ICE_API"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\log_ice\ice\logger_event.ice"
 				>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name=".ice files to C++ files"
+						DLLExport="LOG_ICE_API"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\log_ice\ice\loggerctrl.ice"
 				>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name=".ice files to C++ files"
+						DLLExport="LOG_ICE_API"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\log_ice\ice\option_event.ice"
 				>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name=".ice files to C++ files"
+						DLLExport="LOG_ICE_API"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 	</Files>
