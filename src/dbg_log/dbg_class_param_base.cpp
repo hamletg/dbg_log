@@ -2,6 +2,8 @@
 
 #include "dbg_log/dbg_class_param_base.h"
 
+#include <wx/string.h>
+
 namespace dbg_log
 {
 
@@ -41,6 +43,24 @@ void dbg_class_param_base::SetDbgClass(dbg_class *dbgclass)
 dbg_class *dbg_class_param_base::GetDbgClass()
 {
     return m_dbg_class;
+}
+
+void dbg_class_param_base::StrConvert(std::string &v,const std::wstring &value)
+{
+    wxString wx_str;
+
+    wx_str=value;
+
+    v=wx_str.c_str().AsChar();
+}
+
+void dbg_class_param_base::StrConvert(std::string &v, std::wstring &value)
+{
+    wxString wx_str;
+
+    wx_str=value;
+
+    v=wx_str.c_str().AsChar();
 }
 
 }

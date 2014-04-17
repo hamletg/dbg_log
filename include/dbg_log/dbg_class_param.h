@@ -134,6 +134,108 @@ void dbg_class_param<std::vector<T> >::Print(std::ostream &os,bool enters)
     }
 }
 
+template<typename T>
+class dbg_class_param<T &>: public dbg_class_param_base
+{
+public:
+    dbg_class_param(char *name,T &value,bool output=false);     //!< Constructor
+    dbg_class_param(const char *name,T &value,bool output=false);     //!< Constructor
+    dbg_class_param(char *name,T &value,int len,bool output=false);     //!< Constructor
+    virtual ~dbg_class_param();                                 //!< Destructor
+
+    virtual void Print(logmod::logger &os,bool enters=true);    //!< Print the parameter
+    virtual void Print(std::ostream &os,bool enters=true);      //!< Print the parameter
+
+    T &m_value;                                                 //!< The actual paramater
+};
+
+template<typename T>
+dbg_class_param<T &>::dbg_class_param(char *name,T &value,bool output)
+    :dbg_class_param_base(name,output),m_value(value)
+{}
+
+template<typename T>
+dbg_class_param<T &>::dbg_class_param(const char *name,T &value,bool output)
+    :dbg_class_param_base(name,output),m_value(value)
+{}
+
+template<typename T>
+dbg_class_param<T &>::dbg_class_param(char *name,T &value,int len,bool output)
+    :dbg_class_param_base(name,len,output),m_value(value)
+{}
+    
+template<typename T>
+dbg_class_param<T &>::~dbg_class_param()
+{}
+
+template<typename T>
+void dbg_class_param<T &>::Print(logmod::logger &os,bool enters)
+{
+    if (enters)
+    {
+        if (!IsOutput())
+            os << m_name << " = " << m_value; // << std::endl;
+        else
+            os << m_name << " = " << m_value; // << std::endl;        
+    }
+    else
+    {
+        if (!IsOutput())
+            os << m_name << " = " << m_value; // << std::endl;
+        else
+            os << m_name << " = " << m_value; // << std::endl;
+    }
+}
+
+template<typename T>
+void dbg_class_param<T &>::Print(std::ostream &os,bool enters)
+{    
+    if (enters)
+    {        
+        if (!IsOutput())
+            os << m_name << " = " << m_value; // << std::endl;
+        else
+            os << m_name << " = " << m_value; // << std::endl;        
+    }
+    else
+    {        
+        if (!IsOutput())
+            os << m_name << " = " << m_value; // << std::endl;
+        else
+            os << m_name << " = " << m_value; // << std::endl;        
+    }
+}
+
+template<>
+class DBG_LOG_API dbg_class_param <const std::wstring &>: public dbg_class_param_base
+{
+public:
+    dbg_class_param(char *name,const std::wstring &value,bool output=false);     //!< Constructor
+    dbg_class_param(const char *name,const std::wstring &value,bool output=false);     //!< Constructor
+    dbg_class_param(char *name,const std::wstring &value,int len,bool output=false);     //!< Constructor
+    virtual ~dbg_class_param();                                 //!< Destructor
+
+    virtual void Print(logmod::logger &os,bool enters=true);    //!< Print the parameter
+    virtual void Print(std::ostream &os,bool enters=true);      //!< Print the parameter
+
+    const std::wstring &m_value;                                                 //!< The actual paramater
+};
+
+template<>
+class DBG_LOG_API dbg_class_param < std::wstring &>: public dbg_class_param_base
+{
+public:
+    dbg_class_param(char *name, std::wstring &value,bool output=false);     //!< Constructor
+    dbg_class_param(const char *name, std::wstring &value,bool output=false);     //!< Constructor
+    dbg_class_param(char *name, std::wstring &value,int len,bool output=false);     //!< Constructor
+    virtual ~dbg_class_param();                                 //!< Destructor
+
+    virtual void Print(logmod::logger &os,bool enters=true);    //!< Print the parameter
+    virtual void Print(std::ostream &os,bool enters=true);      //!< Print the parameter
+
+     std::wstring &m_value;                                                 //!< The actual paramater
+};
+
 }
 
 #endif

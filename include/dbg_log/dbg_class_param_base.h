@@ -28,6 +28,8 @@ public:
     void SetOuput(bool value=true);         //!< Set the flag saying if the parameter is used to return a value
     void SetDbgClass(dbg_class *dbgclass);  //!< Set the debug class
     dbg_class *GetDbgClass();               //!< Get the debug class
+    void StrConvert(std::string &v, const std::wstring &value);
+    void StrConvert(std::string &v, std::wstring &value);
 protected:
     const char *m_name;		///< Name the parameter
     bool m_output_param;	///< True is the parameter is used to output a value

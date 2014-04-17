@@ -385,6 +385,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\dbg_log\dbg_class_param.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\dbg_log\dbg_class_param_base.cpp"
 				>
 			</File>

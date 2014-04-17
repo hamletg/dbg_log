@@ -151,6 +151,18 @@ protected:
     __up_dbg_class_member_call_prof.Start(); \
     dbg_log::dbg_class_prof_bug __up_dbg_class_member_call_prof_bug(&__up_dbg_class_member_call_prof);
 
+#define DBG_CALLMEMBER_RETREF(name,state,type,var_name,var) \
+    static dbg_log::dbg_class_prof __up_dbg_class_member_call_prof(name); \
+    static dbg_log::dbg_class_function_info __up_dbg_member_call_info(name); \
+    type &var_name=var; \
+    dbg_log::dbg_class_param<type &> __up_dbg_class_param_ret(#var_name,var_name); \
+    dbg_log::dbg_class __up_dbg_class_member_call(name,state); \
+    __up_dbg_class_member_call.SetFunctionInfo(&__up_dbg_member_call_info); \
+    __up_dbg_class_member_call.SetReturn(&__up_dbg_class_param_ret); \
+    __up_dbg_class_member_call_prof.IncCall(); \
+    __up_dbg_class_member_call_prof.Start(); \
+    dbg_log::dbg_class_prof_bug __up_dbg_class_member_call_prof_bug(&__up_dbg_class_member_call_prof);
+
 #define DBG_PARAM(number,name,type,var) \
     dbg_log::dbg_class_param<type> __up_dbg_class_param##number(name,var); \
     __up_dbg_class_member_call.AddParam(&__up_dbg_class_param##number);
@@ -187,6 +199,7 @@ protected:
 #define DBG_CALLMEMBER_RET(name,state,type,var) \
     type var;
     
+#define DBG_CALLMEMBER_RETREF(name,state,type,var_name,var)
 
 #define DBG_PARAM(number,name,type,var)
 
